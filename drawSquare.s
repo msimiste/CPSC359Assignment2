@@ -1,14 +1,17 @@
 .section	.text
 .globl		drawSquare
 .globl		drawLine
+.globl		clearScreen
 
 
 
 
 drawSquare:
+
 	
-	push {r1, lr}	
-	mov r6, #100 // counter2
+	
+	push {r0-r7, lr}	
+	//mov r6, #100 // counter2
 
 drawSquareLoop:
 	
@@ -19,7 +22,7 @@ drawSquareLoop:
 	
 	bge drawSquareLoop // loop
 	
-	pop {r1, lr}
+	pop {r0-r7,lr}
 	bx lr
 
 	
@@ -27,8 +30,8 @@ drawSquareLoop:
 
 drawLine:
 
-	push {r0, lr}	
-	mov r5, #100 // counter
+	push {r0-r7, lr}	
+	//mov r5, #100// counter
 	
 	
 drawLineLoop:
@@ -41,7 +44,26 @@ drawLineLoop:
 	
 	bge drawLineLoop // loop
 	
-	pop {r0, lr}
+	pop {r0-r7, lr}
+	bx lr
+	
+	
+
+clearScreen:
+
+	push {r0, r1, lr}
+
+	mov r1, #0
+	mov r0, #0
+	
+	mov r6, #1020	
+	ldr r5, =0x2f8
+	
+	ldr r2, =0x000000
+	
+	bl drawSquare
+	
+	pop {r0, r1, lr}
 	bx lr
 	
 

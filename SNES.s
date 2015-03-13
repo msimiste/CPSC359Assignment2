@@ -3,6 +3,7 @@
 .globl		SNES
 .globl		SNES_Input
 .globl		wait
+.globl		delay
 
 SNES:
 
@@ -46,8 +47,8 @@ SNES_Input:
 
 		push {lr}
 		
-		button .req r12
-		mov	button, #0	
+		//button .req r12
+		mov	r12, #0	
 		
 		// write 1 to clock	
 		mov r0, #11		
@@ -131,7 +132,7 @@ pulseLoop:
 	
 exit:
 		
-		popeq {lr}
+		pop {lr}
 		bx lr
 
 
@@ -149,5 +150,18 @@ wait:
 		
 		pop {lr}
 		bx lr
+	
+delay:				// delay loop
+
+	
+	push {r7, lr}
+	
+	subs r7, #1			
+	bne	delay
+	
+	
+	pop {r7, lr}	
+	bx lr
+	
 	
 
