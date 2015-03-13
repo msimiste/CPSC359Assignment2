@@ -11,52 +11,40 @@ main:
 
     mov     sp, #0x8000	
 	bl		EnableJTAG
-	
-	
-	
 		
+	
 	bl SNES	
+		
+	bl InitFrameBuffer
+	
 	bl SNES_Input
 	
 	ldr r1, =SNES_Button
-	str r12, [r1]
 	
-	bl InitFrameBuffer
+	str r12, [r1]	
 
-test:
-	
-	
-	
-	
-	//mov r0, #700 //x coordinate
-	//mov r1, #400 // y coordinate
-	
-	//ldr r2, =0xcccc00
-	//mov r5, #100
-	//mov r6, #100
-	
-	ldr r10, =Player
-	ldr r0, [r10]
-	ldr r1, [r10, #4]
-	ldr r2, [r10, #16]
-	ldr r5, [r10, #8]
-	ldr r6, [r10, #8]
-	ldr r7, [r10, #12]
 
+	ldr r4, =Player
+	//ldr r0, [r10]     // x value
+	//ldr r1, [r10, #4] // y value
+	//ldr r2, [r10, #16] // color
+	//ldr r3, [r10, #12] // size
+	//ldr r5, [r10, #8]
+	//ldr r6, [r10, #8]
 	bl drawSquare
 	
-	bl moveCheck
 	
-	//bl moveRight
-	//bl moveLeft
+	ldr r4, =Player
+	ldr r4, [r4]
+	
 	
 
 
 
 
-    
 haltLoop$:
-	b		haltLoop$
+	b		haltLoop$    
+
 
 
 
@@ -70,5 +58,4 @@ Player:
 		
 SNES_Button:		
 		.int 0 // button value
-
 
