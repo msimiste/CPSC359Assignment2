@@ -154,13 +154,14 @@ wait:
 delay:				// delay loop
 
 	
-	push {r7, lr}
+	push {r9, lr}
 	
-	subs r7, #1			
-	bne	delay
+del1:	
+	subs r9, #1			
+	bne	del1
 	
 	
-	pop {r7, lr}	
+	pop {r9, lr}	
 	bx lr
 	
 	
