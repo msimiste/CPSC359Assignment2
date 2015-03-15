@@ -26,23 +26,12 @@ main:
 	
 	ldr r4, =Player
 
-temptest1:
-	bl moveLeft
-	ldr r4, =Player
-	ldr r4, [r4]
-	ldr	r5,	=750
-	cmp	r4, r5 
-	bne temptest1
 
-	ldr r4, =Player
-	//ldr r0, [r10]     // x value
-	//ldr r1, [r10, #4] // y value
-	//ldr r2, [r10, #16] // color
-	//ldr r3, [r10, #12] // size
-	//ldr r5, [r10, #8]
-	//ldr r6, [r10, #8]
-	//bl	drawSquare
 	bl moveLeft
+	
+
+
+
 	
 	
 	ldr r4, =Player
