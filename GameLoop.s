@@ -28,11 +28,12 @@ leftTest:
 	ands	r11, r0 
 	bleq	moveLeft
 	
-	/*mov	r11, #1
+	mov	r11, #1
 	lsl	r11, #8
 	ands	r11, r12
-	bleq	rightFun
+	bleq	moveRight
 	
+	/*
 	mov	r11, #1
 	lsl	r11, #7
 	ands	r11, r12

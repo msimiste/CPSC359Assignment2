@@ -40,7 +40,7 @@ Player:
 		.int 800 // NE x value
 		.int 400 // NE y value
 		.int 16  // size value
-		.int 0x000fff00 // speed
+		.int 0x000fffff // speed
 		.int 0xcccc00 // color
 
 		
