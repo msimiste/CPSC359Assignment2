@@ -10,17 +10,20 @@ ParseSNES:
 	/*mov	r11, #1
 	lsl	r11, #12
 	ands	r11, r12
-	bleq	startFun	
+	bleq	startFun
+	*/	
 
+
+	
 	mov	r11, #1
 	lsl	r11, #11
 	ands	r11, r12
-	bleq	upFun
+	bleq	moveUp
 	
 	mov	r11, #1
 	lsl	r11, #10
 	ands	r11, r12
-	bleq	downFun*/	
+	bleq	moveDown
 
 leftTest:	
 	mov	r11, #1
