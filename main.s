@@ -15,9 +15,10 @@ main:
 	bl InitFrameBuffer
 	cmp r0, #0
 	beq haltLoop$
+
+	bl SNES
 	
-	bl SNES	
-	
+mainLoop:
 	bl SNES_Input
 	
 	ldr r1, =SNES_Button
@@ -25,9 +26,11 @@ main:
 	str r12, [r1]
 	
 	ldr r4, =Player
-	//ldr r4, [r4]
 	
 	bl		ParseSNES
+	
+	b mainLoop
+
 
 haltLoop$:
 	b		haltLoop$
@@ -36,7 +39,7 @@ haltLoop$:
 Player:
 		.int 800 // NE x value
 		.int 400 // NE y value
-		.int 50  // size value
+		.int 16  // size value
 		.int 0x000fff00 // speed
 		.int 0xcccc00 // color
 

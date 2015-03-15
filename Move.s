@@ -15,7 +15,7 @@ moveLeft:
 		ldr r8, [r4, #8] 	// size
 		ldr r9, [r4, #12] 	//speed
 		
-		//bl delay
+		bl delay
 		bl drawSquare
 		
 see:		
@@ -25,8 +25,9 @@ see:
 		ldr r8, [r4, #8] 	// size
 		ldr r9, [r4, #12] 	//speed
 		
+		bl delay
 		bl drawSquare
-		//bl delay
+		
 test1:		
 		sub r5, r5, r8
 		str r5, [r4]

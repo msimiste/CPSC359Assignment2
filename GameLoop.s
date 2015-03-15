@@ -3,6 +3,8 @@
 
 ParseSNES:
 
+	push {lr}
+
 	mov	r0, r12
 
 	/*mov	r11, #1
@@ -34,8 +36,9 @@ leftTest:
 	mov	r11, #1
 	lsl	r11, #7
 	ands	r11, r12
-	bleq	AFun*/			
-	
+	bleq	AFun*/	
+			
+	pop	{lr}
 	bx lr
 	
 startFun:
