@@ -47,10 +47,6 @@ SNES_Input:
 
 		push {lr}
 		
-<<<<<<< HEAD
-		//button .req r12
-=======
->>>>>>> 460269df41933aa54da1939563cfd194a2d7af2e
 		mov	r12, #0	
 		
 		// write 1 to clock	

@@ -36,7 +36,7 @@ PlayerBullet:
 		.int 0 // SE x value
 		.int 0 // SE y value
 		.int 4 //bullet size
-		.int 0x0000ffff // speed
+		.int 0x000fffff // speed
 		.int 0xcccc00 // color
 		.int 16 //move offset
 		.int 0 //bullet present?
@@ -55,5 +55,8 @@ boundsInfo:
 			.int 752	// South Boundary
 			.int 0x66FF66 // set color
 			
+
+		
+
 
 		
