@@ -2,7 +2,11 @@
 .globl		drawSquare
 .globl		drawLine
 .globl		clearScreen
+<<<<<<< HEAD
 
+=======
+.globl 		drawBounds
+>>>>>>> 460269df41933aa54da1939563cfd194a2d7af2e
 
 
 
@@ -43,6 +47,65 @@ lineLoop:
 		pop {r5-r12, lr}
 		
 		bx lr
+<<<<<<< HEAD
 
+=======
+		
+drawBounds:
+
+			push {lr}
+			
+	
+			ldr r9, =boundsInfo
+			ldr r4, [r9]  // x value
+			ldr r5, [r9, #4] // y value
+			ldr r6, [r9, #8]	// y2 value
+			ldr r10, [r9, #16]  // y 3 value
+			ldr r7, =0x66FF66 // set color
+			ldr r8, [r9, #12]	// east boundary
+			 
+	
+drawHoriz:
+
+			mov r0, r4			//x value
+			mov r1, r5			// y value
+			mov r2, r7		// color value					
+			bl DrawPixel	//draw a pixel
+			mov r0, r4			//x value
+			mov r1, r6
+			mov r2, r7		// color value			
+			bl DrawPixel	// draw a pixel
+			mov r0, r4			//x value
+			mov r1, r10
+			mov r2, r7	
+			bl DrawPixel			
+			add r4, #1		// increase the x value
+			cmp	r4, r8		// check to see if x is out of bounds	
+			bne	drawHoriz 
+			
+			
+
+		
+			ldr r4, [r9]  // x value
+			ldr r5, [r9] // y value
+drawVert:			
+			mov r0, r4			//x value
+			mov r1, r5			// y value
+			mov r2, r7		// color value					
+			bl DrawPixel	//draw a pixel
+			mov r0, r8			//x value
+			mov r1, r5
+			mov r2, r7		// color value			
+			bl DrawPixel	// draw a pixel
+			add r5, #1		// increase the x value
+			cmp	r5, r10		// check to see if x is out of bounds	
+			bne	drawVert
+			
+			
+
+			
+			pop {lr}
+			bx lr
+>>>>>>> 460269df41933aa54da1939563cfd194a2d7af2e
 	
 	

@@ -16,6 +16,7 @@ main:
 	cmp r0, #0
 	beq haltLoop$
 	
+<<<<<<< HEAD
 	bl SNES	
 	
 	bl SNES_Input
@@ -59,4 +60,31 @@ Player:
 		
 SNES_Button:		
 		.int 0 // button value
+=======
+	bl drawBounds
+
+	bl SNES
+	
+	
+	
+mainLoop:
+	bl SNES_Input
+	
+	ldr r1, =SNES_Button
+	
+	str r12, [r1]
+	
+	ldr r4, =Player
+	
+	bl		ParseSNES
+	
+	b mainLoop
+
+
+haltLoop$:
+	b		haltLoop$
+	
+.section .data
+
+>>>>>>> 460269df41933aa54da1939563cfd194a2d7af2e
 
