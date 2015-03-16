@@ -33,6 +33,8 @@ mainLoop:
 	
 	bl		ParseSNES
 	
+	bl updateBullet
+	
 	b mainLoop
 
 

@@ -1,5 +1,6 @@
 .section .text
 .globl ParseSNES
+.globl updateBullet
 
 ParseSNES:
 
@@ -24,8 +25,7 @@ ParseSNES:
 	lsl	r11, #10
 	ands	r11, r12
 	bleq	moveDown
-
-leftTest:	
+	
 	mov	r11, #1
 	lsl	r11, #9
 	ands	r11, r0 
@@ -36,11 +36,11 @@ leftTest:
 	ands	r11, r12
 	bleq	moveRight
 	
-	/*
+	
 	mov	r11, #1
 	lsl	r11, #7
 	ands	r11, r12
-	bleq	AFun*/	
+	bleq	startShoot	
 			
 	pop	{lr}
 	bx lr
@@ -48,18 +48,17 @@ leftTest:
 startFun:
 
 	bx lr
-upFun:
+	
+updateBullet:
+	
+		push {lr}
 
-	bx lr
-downFun:
-
-	bx lr
-leftFun:
-
-	bx lr
-rightFun:
-
-	bx lr
-AFun:
-
-	bx lr
+		ldr r4, =PlayerBullet
+		ldr r0, [r4, #24]
+		cmp	r0, #0
+		beq	endUpdateBullet
+		bl moveRight
+		
+endUpdateBullet:
+		pop {lr}
+		bx	lr
