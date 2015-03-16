@@ -23,7 +23,13 @@ main:
 	
 	
 mainLoop:
+	ldr r9, =0x000fffff
+	bl delay
+	
 	bl SNES_Input
+	
+checkInput:
+
 	
 	ldr r1, =SNES_Button
 	
@@ -35,6 +41,9 @@ mainLoop:
 	
 	bl updateBullet
 	
+	
+	
+	bl updateState
 	b mainLoop
 
 

@@ -29,17 +29,17 @@ Player:
 		.int 48 // SE x value
 		.int 47 // SE y value
 		.int 16  // size value
-		.int 0x000fffff // speed
+		.int 16 // speed
 		.int 0xcccc00 // color
+		.int 1 // player present..  1 = present 0= not present
 
 PlayerBullet:
 		.int 0 // SE x value
 		.int 0 // SE y value
 		.int 4 //bullet size
-		.int 0x000fffff // speed
+		.int 32 // speed
 		.int 0xcccc00 // color
-		.int 16 //move offset
-		.int 0 //bullet present?
+		.int 0 //bullet present.. 1 = present 0= not present
 		
 		
 
