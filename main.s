@@ -16,7 +16,21 @@ main:
 	cmp r0, #0
 	beq haltLoop$
 	
+	//bl initScreen
+	
+	bl scoreScreen
+	ldr r0, =pauseBoundsInfo
+	bl drawPBack
+	bl pauseScreen
 	bl drawBounds
+	ldr	r0, =pauseBoundsInfo
+	
+
+	bl drawPauseBounds
+	//bl startScreen
+	
+
+
 
 	bl SNES
 	
@@ -44,6 +58,7 @@ checkInput:
 	
 	
 	bl updateState
+	
 	b mainLoop
 
 
@@ -51,8 +66,3 @@ haltLoop$:
 	b		haltLoop$
 	
 .section .data
-
-
-
-
-

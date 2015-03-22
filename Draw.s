@@ -3,6 +3,9 @@
 .globl	drawLine
 .globl	clearScreen
 .globl drawBounds
+.globl DrawChar
+.globl drawPauseBounds
+.globl drawPBack
 
 drawSquare:
 
@@ -80,5 +83,128 @@ drawVert:
 		
 		pop {lr}
 		bx lr
+		
+drawPauseBounds:
+
+	push {lr}	//r0 = data struct address
+	
+		mov	r9, r0	//address save
+		ldr	r4, [r0] //x1 value
+		ldr	r5, [r0, #4] //y1 value
+		ldr	r6, [r0, #8] //x2 value
+		ldr	r7, [r0, #12] //y2 value
+		ldr	r8, [r0, #16] //colour
+
+		
+drawPHoriz:	
+		mov r0, r4 				//x value
+		mov r1, r5 				// y value
+		mov r2, r8 				// color value
+		bl DrawPixel 			//draw a pixel
+		mov r0, r4 				//x value
+		mov r1, r7 				// y value
+		mov r2, r8 				// color value
+		bl DrawPixel 			//draw a pixel
+		add r4, #1 				// increase the x value
+		cmp	r4, r6 				// check to see if x is out of bounds
+		bne drawPHoriz
+		
+
+		ldr r4, [r9] 			// x value
+		ldr r5, [r9, #4] 			// y value
+		
+drawPVert:
+		mov r0, r4 				//x1 value
+		mov r1, r5 				// y1 value
+		mov r2, r8 				// color value
+		bl DrawPixel 			//draw a pixel
+		mov r0, r6 				//x2 value
+		mov r1, r5
+		mov r2, r8 				// color value
+		bl DrawPixel 			// draw a pixel
+		add r5, #1 				// increase the x value
+		cmp	r5, r7 			// check to see if x is out of bounds
+		bne drawPVert
+	
+	pop	{lr}
+	bx lr
+	
+drawPBack:
+
+		push {lr}		
+		
+		ldr	r5, [r0, #8] //x value
+		ldr	r6, [r0, #12] //y value
+		ldr	r7, =0x00f9 //color
+		ldr	r8, [r0, #20] //size
+		bl drawSquare
+		
+		
+		pop {lr}
+		bx lr
+	
+DrawChar:
+	push	{r4-r10, lr}		//r0 = int value of char, r1 = colour, r2 = x coord, r3 = y coord
+
+	chAdr	.req	r4
+	px		.req	r5
+	py		.req	r6
+	row		.req	r7
+	mask	.req	r8
+	mov		r9, r2
+	mov		r10, r1
+	//mov		r11, 
+
+	ldr		chAdr,	=font		// load the address of the font map
+	//ldr		r0,		r4		// load the character into r0
+	add		chAdr,	r0, lsl #4	// char address = font base + (char * 16)
+
+	mov		py,		r3			// init the Y coordinate (pixel coordinate)
+
+charLoop$:
+	mov		px,		r9			// init the X coordinate
+
+	mov		mask,	#0x01		// set the bitmask to 1 in the LSB
+	
+	ldrb	row,	[chAdr], #1	// load the row byte, post increment chAdr
+
+rowLoop$:
+	tst		row,	mask		// test row byte against the bitmask
+	beq		noPixel$
+
+	mov		r0,		px
+
+	mov		r1,		py
+	mov		r2,		r10			// red
+	bl		DrawPixel			// draw red pixel at (px, py)
+
+
+noPixel$:
+	add		px,		#1			// increment x coordinate by 1
+	lsl		mask,	#1			// shift bitmask left by 
+
+	tst		mask,	#0x100		// test if the bitmask has shifted 8 times (test 9th bit)
+	beq		rowLoop$
+
+	add		py,		#1			// increment y coordinate by 1
+
+	tst		chAdr,	#0xF
+	bne		charLoop$			// loop back to charLoop$, unless address evenly divisibly by 16 (ie: at the next char)
+
+	.unreq	chAdr
+	.unreq	px
+	.unreq	py
+	.unreq	row
+	.unreq	mask
+
+
+	pop		{r4-r10, pc}
+	bx	lr
+
+.section .data
+
+.align 4
+font:		.incbin	"font.bin"
+
 
 	

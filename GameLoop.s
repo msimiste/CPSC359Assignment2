@@ -2,6 +2,12 @@
 .globl ParseSNES
 .globl updateBullet
 .globl updateState
+.globl drawText
+.globl startScreen
+.globl scoreScreen
+.globl pauseScreen
+.globl resultScreen
+.globl initScreen
 
 ParseSNES:
 
@@ -110,7 +116,7 @@ removeObject:
 			ldr r7, =0x000000 						// color changed to black
 			ldr r8, [r4, #8] 						// size
 			ldr r9, [r4, #20]						// check to see if object exists
-			cmp	r9, #0								// if r9 == 0, object exists, if r9 =1 object does not exist
+			cmp	r9, #0								// if r9 == 1, object exists, if r9 =0 object does not exist
 			
 			beq drawBlack							// Object does not exist, draw black
 			
@@ -135,6 +141,135 @@ endRemove:
 				
 			pop {r4,lr}
 			bx lr
-				
+			
+drawText:
+	push {lr}
+	
+		mov r4, r0				//address passed in on r0
+		mov	r5, r1				//end address passed in on r1
+		mov	r6, r2				//x coord input
+		mov	r7, r3				//y coord input
+		mov	r1, r10
+ 
+topText:
+		ldr r0, [r4]			//pass out int value for char
+		add	r4, #4	
+		bl	DrawChar
+		cmp	r4, r5
+		beq	endDrawText
+		add	r6, #12
+		mov	r2, r6				//pass out x coord
+		mov	r3, r7				//pass out y coord
+		mov	r1, r10
+		b	topText
+		
+endDrawText:
+
+	pop {lr}
+	bx	lr
+	
+initScreen:
+
+	push {lr}
+
+	bl drawBounds
+	bl scoreScreen
+	bl startScreen
+	
+	pop {lr}
+	bx lr
+	
+scoreScreen:
+
+	push {lr}
+
+	ldr	r0, =scoreInfo
+	ldr	r1, =endScoreInfo
+	mov	r2,	#4
+	mov	r3, #16
+	ldr	r10, =0xF800
+	bl drawText
+	
+	pop {lr}
+	bx lr
+	
+startScreen:
+
+	push {lr}
+
+	ldr	r0, =TitleInfo
+	ldr	r1, =endTitleInfo
+	ldr	r2,	=275
+	ldr	r3, =367
+	ldr	r10, =0x00F8
+	bl drawText
+	
+	ldr	r0, =StartInfo
+	ldr	r1, =endStartInfo
+	ldr	r2,	=425
+	ldr	r3, =387
+	ldr	r10, =0x66ff
+	bl drawText
+	
+	pop {lr}
+	bx lr
+	
+pauseScreen:
+
+	push {lr}
+	
+	ldr	r0, =PauseInfo
+	ldr	r1, =endPauseInfo
+	ldr	r2,	=425
+	ldr	r3, =300
+	ldr	r10, =0xf800
+	bl drawText
+	
+	ldr	r0, =ContinueInfo
+	ldr	r1, =endContinueInfo
+	ldr	r2,	=461
+	ldr	r3, =320
+	ldr	r10, =0xfFcc
+	bl drawText
+	
+	ldr	r0, =NewInfo
+	ldr	r1, =endNewInfo
+	ldr	r2,	=461
+	ldr	r3, =340
+	ldr	r10, =0xfFcc
+	bl drawText
+	
+	ldr	r0, =QuitInfo
+	ldr	r1, =endQuitInfo
+	ldr	r2,	=461
+	ldr	r3, =360
+	ldr	r10, =0xfFcc
+	bl drawText
+	
+	pop {lr}
+	bx lr
+	
+resultScreen:
+
+	push {lr}
+
+	ldr	r0, =GameWon
+	ldr	r1, =endGameWon
+	ldr	r2,	=450
+	ldr	r3, =360
+	ldr	r10, =0x00FF
+	bl drawText
+	
+	
+	ldr	r0, =GameLost
+	ldr	r1, =endGameLost
+	ldr	r2,	=450
+	ldr	r3, =360
+	ldr	r10, =0xf000
+	bl drawText
+	
+	pop {lr}
+	bx	lr
+
 					
 
