@@ -64,65 +64,21 @@ pauseBoundsInfo:
 		.int 152 //size
 			
 scoreInfo:
-		.int 83 //'S'
-		.int 67 //'C'
-		.int 79	//'O'
-		.int 82 //'R'
-		.int 69 //'E'
-		.int 58 //':'
+		.int 83, 67, 79, 82, 69, 58 // S C O R E :
+		
 endScoreInfo:
 
 TitleInfo:
-		.int 66	/*B*/ , 89 //Y	
-		.int 58 //:
-		.int 32 // <space> 
-		.int 77 //M
-		.int 73 //I
-		.int 75 //K
-		.int 69 //E
-		.int 32 //<space>
-		.int 83 //S
-		.int 73 //I
-		.int 77 //M
-		.int 73 //I
-		.int 83 //S
-		.int 84 //T
-		.int 69 //E
-		.int 82 //R
-		.int 32 //<space>
-		.int 38 //&
-		.int 32 //
-		.int 67 // C
-		.int 79 //O
-		.int 78 //N
-		.int 76 //L
-		.int 65 //A
-		.int 78 //N
-		.int 32 //<space>
-		.int 72 //H
-		.int 65 //A
-		.int 78 //N
-		.int 87 //W
-		.int 69 //E
-		.int 76 //L
-		.int 76 //L
+		.int 66, 89, 58, 32, 77, 73, 75, 69, 32, 83, 73, 77, 73, 83, 84, 69, 82, 32, 38
+		.int 32, 67, 79, 78, 76, 65, 78, 32, 72, 65, 78, 87, 69, 76, 76 //B Y  M I K E  S I M I S T E R  &   C O N L A N   H A N W E L L
+
 endTitleInfo:
 
 StartInfo:
 
 		
-		.int 80 //P
-		.int 82 //R
-		.int 69 //E
-		.int 83 //S
-		.int 83 //S
-		.int 32 //<space>
-		.int 83 //S
-		.int 84 //T
-		.int 65 //A
-		.int 82 //R
-		.int 84 //T
-		
+		.int 80, 82, 69, 83, 83, 32, 83, 84, 65, 82, 84 //P R E S S  S T A R T
+
 endStartInfo:
 
 

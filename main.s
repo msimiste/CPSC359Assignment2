@@ -16,17 +16,18 @@ main:
 	cmp r0, #0
 	beq haltLoop$
 	
-	//bl initScreen
+	bl initScreen
 	
-	bl scoreScreen
+/*	bl scoreScreen
 	ldr r0, =pauseBoundsInfo
 	bl drawPBack
 	bl pauseScreen
 	bl drawBounds
-	ldr	r0, =pauseBoundsInfo
+	ldr	r0, =pauseBoundsInfo*/
+	
 	
 
-	bl drawPauseBounds
+	//bl drawPauseBounds
 	//bl startScreen
 	
 
