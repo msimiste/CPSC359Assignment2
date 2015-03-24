@@ -6,6 +6,23 @@
 .globl DrawChar
 .globl drawPauseBounds
 .globl drawPBack
+.globl drawPBlack
+
+
+
+drawPBlack:
+
+		push {lr}		
+		
+		ldr	r5, [r0, #8] //x value
+		ldr	r6, [r0, #12] //y value
+		ldr	r7, =0x0000 //color
+		ldr	r8, [r0, #20] //size
+		bl drawSquare
+		
+		
+		pop {lr}
+		bx lr
 
 drawSquare:
 
@@ -142,6 +159,8 @@ drawPBack:
 		
 		pop {lr}
 		bx lr
+		
+
 	
 DrawChar:
 	push	{r4-r10, lr}		//r0 = int value of char, r1 = colour, r2 = x coord, r3 = y coord

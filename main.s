@@ -15,8 +15,17 @@ main:
 	bl InitFrameBuffer
 	cmp r0, #0
 	beq haltLoop$
+
+
+
+
+	bl SNES
+	
 	
 	bl initScreen
+	
+	bl beginLoop
+	
 	
 /*	bl scoreScreen
 	ldr r0, =pauseBoundsInfo
@@ -29,11 +38,13 @@ main:
 
 	//bl drawPauseBounds
 	//bl startScreen
+	ldr r9, =0x000fffff
+	bl delay
 	
 
 
 
-	bl SNES
+	
 	
 	
 	

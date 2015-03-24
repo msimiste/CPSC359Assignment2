@@ -22,6 +22,8 @@
 .globl GameLost
 .globl endGameLost
 .globl pauseBoundsInfo
+.globl gameNameInfo
+.globl endGameNameInfo
 
 
 .section .data
@@ -67,6 +69,11 @@ scoreInfo:
 		.int 83, 67, 79, 82, 69, 58 // S C O R E :
 		
 endScoreInfo:
+
+gameNameInfo:
+			.int 66, 76, 79, 67, 75, 65, 68, 69 // B L O C K A D E
+
+endGameNameInfo:
 
 TitleInfo:
 		.int 66, 89, 58, 32, 77, 73, 75, 69, 32, 83, 73, 77, 73, 83, 84, 69, 82, 32, 38

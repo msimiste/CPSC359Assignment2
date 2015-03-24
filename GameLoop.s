@@ -8,6 +8,89 @@
 .globl pauseScreen
 .globl resultScreen
 .globl initScreen
+.globl beginLoop
+.globl pauseLoop
+
+
+
+beginLoop:
+		push {lr}
+		
+
+begin:	
+
+		bl SNES_Input
+	
+		ldr		r11, =0xEFFF
+		cmp		r11, r12
+		blne	begin
+		
+		
+		ldr	r0, =gameNameInfo
+		ldr	r1, =endGameNameInfo
+		ldr	r2,	=437
+		ldr	r3, =347
+		ldr	r10, =0x0000
+		bl drawText
+
+		ldr	r0, =TitleInfo
+		ldr	r1, =endTitleInfo
+		ldr	r2,	=281
+		ldr	r3, =367
+		ldr	r10, =0x0000
+		bl drawText
+		
+		ldr	r0, =StartInfo
+		ldr	r1, =endStartInfo
+		ldr	r2,	=425
+		ldr	r3, =387
+		ldr	r10, =0x0000
+		bl drawText
+		
+		pop {lr}
+		bx lr
+		
+pauseLoop:
+
+		push {lr}	
+		
+		
+		ldr r0, =pauseBoundsInfo
+		bl drawPBack
+		bl pauseScreen
+		//bl drawBounds
+		ldr r0, =pauseBoundsInfo		
+		bl drawPauseBounds
+		
+
+SNESGET:
+
+	
+				
+		bl SNES_Input
+		
+		ldr		r11, =0xFF7F
+		cmp		r11, r12
+		blne	SNESGET
+
+		ldr r0, =pauseBoundsInfo
+		
+		bl drawPBlack
+		ldr r0, =pauseBoundsInfo
+		mov r1, #0
+		str r1, [r0, #16]
+		bl drawPauseBounds
+		ldr r0, =pauseBoundsInfo
+		ldr r1, =0x66FF66
+		str  r1, [r0, #16]
+		
+		
+		
+		
+		pop {lr}
+		bx lr
+
+
 
 ParseSNES:
 
@@ -17,12 +100,8 @@ needBreak:
 
 	mov	r0, r12
 
-	/*mov	r11, #1
-	lsl	r11, #12
-	ands	r11, r12
-	bleq	startFun
-	*/	
 
+	
 
 	ldr 	r11, =0xf7ff
 	cmp 	r12, r11
@@ -77,6 +156,11 @@ needBreak:
 	lsl	r11, #7
 	ands	r11, r12
 	bleq	startShoot	
+	
+	ldr		r11, =0xEFFF
+	cmp		r11, r12
+	bleq	pauseLoop
+		
 			
 	pop	{lr}
 	bx lr
@@ -99,6 +183,8 @@ endUpdateBullet:
 		pop {lr}
 		bx	lr
 		
+
+		
 updateState:
 			push {lr}
 	
@@ -118,6 +204,7 @@ removeObject:
 			ldr r9, [r4, #20]						// check to see if object exists
 			cmp	r9, #0								// if r9 == 1, object exists, if r9 =0 object does not exist
 			
+		
 			beq drawBlack							// Object does not exist, draw black
 			
 			ldr	r10, =boundsInfo					
@@ -130,11 +217,7 @@ removeObject:
 drawBlack:
 		
 		bl	drawSquare
-		ldr	r5, =1000
-		mov	r6, #30
-		mov	r9, #0
-		str	r5, [r4]
-		str	r6, [r4, #4]
+		mov	r9, #0	
 		str	r9, [r4, #20]
 		
 endRemove:
@@ -173,7 +256,7 @@ initScreen:
 	push {lr}
 
 	bl drawBounds
-	bl scoreScreen
+	bl scoreScreen	
 	bl startScreen
 	
 	pop {lr}
@@ -196,12 +279,20 @@ scoreScreen:
 startScreen:
 
 	push {lr}
+	
+	
+	ldr	r0, =gameNameInfo
+	ldr	r1, =endGameNameInfo
+	ldr	r2,	=437
+	ldr	r3, =347
+	ldr	r10, =0xaaaa
+	bl drawText
 
 	ldr	r0, =TitleInfo
 	ldr	r1, =endTitleInfo
-	ldr	r2,	=275
+	ldr	r2,	=281
 	ldr	r3, =367
-	ldr	r10, =0x00F8
+	ldr	r10, =0x09F8
 	bl drawText
 	
 	ldr	r0, =StartInfo
