@@ -45,7 +45,7 @@ SNES:
 	
 SNES_Input:
 
-		push {lr}
+		push {r4,lr}
 		
 		mov	r12, #0	
 		
@@ -76,7 +76,7 @@ SNES_Input:
 		mov r5, #0 			//setting counter i = 0
 		bl pulseLoop
 		
-		pop {lr}
+		pop {r4, lr}
 		bx lr
 
 

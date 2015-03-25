@@ -6,10 +6,11 @@
 .globl startScreen
 .globl scoreScreen
 .globl pauseScreen
-.globl resultScreen
+.globl resultLose
 .globl initScreen
 .globl beginLoop
 .globl pauseLoop
+.globl resultWon
 
 
 
@@ -58,20 +59,36 @@ pauseLoop:
 		ldr r0, =pauseBoundsInfo
 		bl drawPBack
 		bl pauseScreen
-		//bl drawBounds
 		ldr r0, =pauseBoundsInfo		
 		bl drawPauseBounds
-		
+		mov r4, #0x1 					//state counter
 
 SNESGET:
-
-	
-				
+			
 		bl SNES_Input
+		
+		ldr 	r11, =0xf7ff //mov up
+		cmp 	r12, r11
+		subeq	r4, #1
+		
+		
+		ldr 	r11, =0xfbff	//mov 
+		cmp 	r12, r11
+		addeq	r4, #1
+	
+		cmp	r4, #0
+		moveq	r4, #3
+		cmp	r4, #4
+		moveq	r4, #1
+		mov	r0, r4
+
+		bl updatePauseColors
 		
 		ldr		r11, =0xFF7F
 		cmp		r11, r12
 		blne	SNESGET
+
+
 
 		ldr r0, =pauseBoundsInfo
 		
@@ -83,14 +100,87 @@ SNESGET:
 		ldr r0, =pauseBoundsInfo
 		ldr r1, =0x66FF66
 		str  r1, [r0, #16]
+
+test:	
 		
+		cmp r4, #2
+		beq	_start
+		
+		cmp r4, #3
+		bleq resultLose
+		beq 	haltLoop$
+		
+		ldr r9, =0x000fffff
+		bl delay
 		
 		
 		
 		pop {lr}
 		bx lr
+		
+updatePauseColors:
 
+		push {r4, r11, r12, lr}
 
+		mov	r4, r0
+		cmp	r4, #3
+		beq state3
+		cmp r4, #2
+		beq	state2
+state1:
+		ldr r1, =continueColor
+		ldr r2, =0x0000f8 
+		str r2, [r1]
+		
+		ldr r1, =newColor
+		ldr r2, =0xfFcc
+		str r2, [r1]
+		
+		ldr r1, =quitColor
+		ldr r2, =0xfFcc
+		str r2, [r1]
+		
+		bl pauseScreen
+		b endUpdatePauseColors
+state2:
+		ldr r1, =continueColor
+		ldr r2, =0xfFcc
+		str r2, [r1]
+		
+		ldr r1, =newColor
+		ldr r2, =0x0000f8 
+		str r2, [r1]
+		
+		ldr r1, =quitColor
+		ldr r2, =0xfFcc
+		str r2, [r1]
+		
+		bl pauseScreen
+		b endUpdatePauseColors
+
+state3:
+		ldr r1, =continueColor
+		ldr r2, =0xfFcc
+		str r2, [r1]
+		
+		ldr r1, =newColor
+		ldr r2, =0xfFcc
+		str r2, [r1]
+		
+		ldr r1, =quitColor
+		ldr r2, =0x0000f8 
+		str r2, [r1]
+		
+		bl pauseScreen
+		b endUpdatePauseColors
+
+endUpdatePauseColors:
+
+		ldr r9, =0x000fffff
+		bl delay
+		
+		pop {r4, r11, r12, lr}
+		bx lr
 
 ParseSNES:
 
@@ -320,28 +410,46 @@ pauseScreen:
 	ldr	r1, =endContinueInfo
 	ldr	r2,	=461
 	ldr	r3, =320
-	ldr	r10, =0xfFcc
+	ldr	r10, =continueColor
+	ldr r10, [r10]
 	bl drawText
 	
 	ldr	r0, =NewInfo
 	ldr	r1, =endNewInfo
 	ldr	r2,	=461
 	ldr	r3, =340
-	ldr	r10, =0xfFcc
+	ldr	r10, =newColor
+	ldr r10, [r10]
 	bl drawText
 	
 	ldr	r0, =QuitInfo
 	ldr	r1, =endQuitInfo
 	ldr	r2,	=461
 	ldr	r3, =360
-	ldr	r10, =0xfFcc
+	ldr	r10, =quitColor
+	ldr r10, [r10]
 	bl drawText
 	
 	pop {lr}
 	bx lr
 	
-resultScreen:
+resultLose:
 
+
+	push {lr}
+		
+	ldr	r0, =GameLost
+	ldr	r1, =endGameLost
+	ldr	r2,	=450
+	ldr	r3, =360
+	ldr	r10, =0xf000
+	bl drawText	
+	
+	pop {lr}
+	bx	lr
+	
+resultWon:
+	
 	push {lr}
 
 	ldr	r0, =GameWon
@@ -351,16 +459,9 @@ resultScreen:
 	ldr	r10, =0x00FF
 	bl drawText
 	
-	
-	ldr	r0, =GameLost
-	ldr	r1, =endGameLost
-	ldr	r2,	=450
-	ldr	r3, =360
-	ldr	r10, =0xf000
-	bl drawText
-	
 	pop {lr}
 	bx	lr
+	
 
 					
 

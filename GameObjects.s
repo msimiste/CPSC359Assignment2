@@ -24,6 +24,9 @@
 .globl pauseBoundsInfo
 .globl gameNameInfo
 .globl endGameNameInfo
+.globl continueColor
+.globl newColor
+.globl quitColor
 
 
 .section .data
@@ -34,6 +37,8 @@ Player:
 		.int 16 // speed
 		.int 0xcccc00 // color
 		.int 1 // player present..  1 = present 0= not present
+		.int 48 // SE init x value
+		.int 47 // SE y value
 
 PlayerBullet:
 		.int 4 // SE x value
@@ -59,14 +64,15 @@ boundsInfo:
 		
 pauseBoundsInfo:
 		.int 415 //x1 val 
-		.int 290 //y1 val	
+		.int 265 //y1 val	
 		.int 567 //x2 val	
-		.int 442 //y2 val
+		.int 417 //y2 val
 		.int 0x66FF66 // set color
 		.int 152 //size
 			
 scoreInfo:
 		.int 83, 67, 79, 82, 69, 58 // S C O R E :
+		.int 0x100 // total
 		
 endScoreInfo:
 
@@ -98,17 +104,27 @@ endPauseInfo:
 ContinueInfo:
 
 			.int 67, 79, 78, 84, 73, 78, 85, 69 // C O N T I N U E
+
 endContinueInfo:
+
+continueColor:
+			.int 0x0000f8
 
 NewInfo:
 			.int 78, 69, 87, 32, 71, 65, 77, 69 // N E W  G A M E
-			
+		
 endNewInfo:
+
+newColor:
+			.int 0xfFcc
 
 QuitInfo:
 			.int 81, 85, 73, 84 // Q U I T	
 			
 endQuitInfo:
+
+quitColor:
+			.int 0xfFcc
 
 GameWon:
 			.int 89, 79, 85, 32, 87, 73, 78, 33, 33, 33 // Y O U  W I N ! ! !
@@ -118,3 +134,40 @@ GameLost:
 			.int 71, 65, 77, 69, 32, 79, 86, 69, 82 // G A M E  O V E R
 
 endGameLost:
+
+ScoreOnes:
+		.int '#0'	// initial
+		//.int 5	// pawn increment/decrement
+		//.int 10 // rook increment/decrement
+		//.int 100 // queen increment/decrement
+
+endScoreOnes:
+
+ScoreTens:
+		.int '#5' // initial
+
+endScoreTens:
+
+ScoreHuns:
+
+endScoreHuns:
+
+Pawn:
+	.int 0 // initial health
+	.int 5 // decrement/damage
+	.int 5 // max health
+endPawn:
+
+Rook:
+	.int 0 // initial health
+	.int 5 // decremen/damage
+	.int 10 // max health
+endRook:
+
+Queen:
+	.int 0 // initial health
+	.int 20 // decrement/ damage
+	.int 100 // max health
+endQueen:
+
+

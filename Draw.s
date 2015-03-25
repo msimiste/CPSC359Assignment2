@@ -12,7 +12,7 @@
 
 drawPBlack:
 
-		push {lr}		
+		push {r4, lr}		
 		
 		ldr	r5, [r0, #8] //x value
 		ldr	r6, [r0, #12] //y value
@@ -21,7 +21,7 @@ drawPBlack:
 		bl drawSquare
 		
 		
-		pop {lr}
+		pop {r4, lr}
 		bx lr
 
 drawSquare:
@@ -103,7 +103,7 @@ drawVert:
 		
 drawPauseBounds:
 
-	push {lr}	//r0 = data struct address
+	push {r4, lr}	//r0 = data struct address
 	
 		mov	r9, r0	//address save
 		ldr	r4, [r0] //x1 value
@@ -143,7 +143,7 @@ drawPVert:
 		cmp	r5, r7 			// check to see if x is out of bounds
 		bne drawPVert
 	
-	pop	{lr}
+	pop	{r4, lr}
 	bx lr
 	
 drawPBack:
@@ -152,7 +152,7 @@ drawPBack:
 		
 		ldr	r5, [r0, #8] //x value
 		ldr	r6, [r0, #12] //y value
-		ldr	r7, =0x00f9 //color
+		ldr	r7, =0x0000 //color
 		ldr	r8, [r0, #20] //size
 		bl drawSquare
 		

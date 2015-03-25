@@ -1,5 +1,6 @@
 .section    .init
 .globl     _start
+.globl 		haltLoop$
 
 _start:
     b       main
@@ -16,7 +17,7 @@ main:
 	cmp r0, #0
 	beq haltLoop$
 
-
+	//udiv	r2, #10, #7
 
 
 	bl SNES
