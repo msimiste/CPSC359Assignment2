@@ -167,7 +167,7 @@ startShoot:
 		
 
 		ldr r5, [r4]     						// x value
-		add	r5, #6								//bullet x value
+		add	r5, #10								//bullet x value
 		ldr r6, [r4, #4] 						// y value
 		sub	r6, #6								//bullet y value
 		
@@ -188,5 +188,45 @@ endStartShoot:
 		pop {r4-r12, lr}
 
 		bx lr
+		
+/*computerMoveLoop: (Mar .25)
+
+			push {r4, lr}
+			mov r4, r0 						// start of Character objects address			
+			mov r9, r1						// end of Character objects address
+compLoop:								//r0 = x val, r1 = y val, r7 = color val, r8 = size val
+				
+			cmp r4, r9
+			beq endCompLoop			
+			ldr	r5, =computerDirectionInfo
+			ldr	r6, [r5] //direction
+			cmp r6, #2
+			beq compMoveSouth
+			cmp	r6, #1
+			beq compMoveWest
+			
+compMoveNorth:
+			ldr r7, [r5, #12] //current movement
+			ldr	r8, [r5, #4]  //max move
+			cmp	r8, r7
+			beq compEndNorth
+			
+compendNorth:		
+
+compMoveWest:
+
+compMoveSout:
+			
+compNextMove:
+			add r4, #32
+			b InitStateLoop
+			
+			
+endCompLoop:
+			
+			pop {r4, lr}
+			bx lr*/
+
+
 
 

@@ -17,15 +17,20 @@ main:
 	cmp r0, #0
 	beq haltLoop$
 
-	//udiv	r2, #10, #7
-
-
 	bl SNES
 	
-	
+west1:	
+	ldr r5, =boundsInfo
+	ldr r5, [r5, #16]
+
 	bl initScreen
 	
 	bl beginLoop
+
+test1:
+	ldr	r0, =beginObjects
+	ldr r1, =endCharacterObjects
+	bl 	InitialStateLoop
 	
 	
 /*	bl scoreScreen

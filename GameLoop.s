@@ -11,6 +11,7 @@
 .globl beginLoop
 .globl pauseLoop
 .globl resultWon
+.globl InitialStateLoop
 
 
 
@@ -89,7 +90,6 @@ SNESGET:
 		blne	SNESGET
 
 
-
 		ldr r0, =pauseBoundsInfo
 		
 		bl drawPBlack
@@ -100,11 +100,26 @@ SNESGET:
 		ldr r0, =pauseBoundsInfo
 		ldr r1, =0x66FF66
 		str  r1, [r0, #16]
+		
+
 
 test:	
 		
 		cmp r4, #2
+		ldr r0, =beginObjects
+		ldr r1, =endObjects
+		bleq clearStateLoop
+test3:
+
+
+west6:
+		ldr r5, =boundsInfo
+		ldr r5, [r5, #16]
+		
+		
+		cmp r4, #2
 		beq	_start
+
 		
 		cmp r4, #3
 		bleq resultLose
@@ -285,7 +300,7 @@ updateState:
 
 		
 removeObject:
-			push {r4, lr}
+			push {r4, r5, lr}
 				
 			ldr r5, [r4]     						// x value
 			ldr r6, [r4, #4] 						// y value
@@ -312,8 +327,69 @@ drawBlack:
 		
 endRemove:
 				
-			pop {r4,lr}
+			pop {r4, r5, lr}
 			bx lr
+			
+clearStateLoop:
+			push {r4, lr}
+west4:
+		ldr r5, =boundsInfo
+		ldr r5, [r5, #16]
+		
+			mov r4, r0 						// start of objects address			
+			mov r5, r1						// end of objects address
+stateLoop:
+			
+		
+			
+			cmp r4, r5
+			beq endClearStateLoop
+			
+			mov	r6, #0
+			str r6, [r4, #20]
+			
+			bl removeObject
+			ldr r6, [r4, #24]
+			str r6, [r4]
+			ldr r6, [r4, #28]
+			str r6, [r4, #4]
+			add r4, #32
+			b stateLoop
+			
+			
+endClearStateLoop:
+			
+			pop {r4, lr}
+			bx lr		
+
+
+InitialStateLoop:
+			push {r4, lr}
+			mov r4, r0 						// start of Character objects address			
+			mov r9, r1						// end of Character objects address
+InitStateLoop:								//r0 = x val, r1 = y val, r7 = color val, r8 = size val
+				
+			cmp r4, r9
+			beq endInitialStateLoop
+			ldr r5, [r4]
+			ldr	r6, [r4, #4]
+			ldr r7, [r4, #16]
+			ldr r8, [r4, #8]
+			
+			bl drawSquare
+test2:			
+			add r4, #32
+			b InitStateLoop
+			
+			
+endInitialStateLoop:
+			
+			pop {r4, lr}
+			bx lr
+		
+			
+
+
 			
 drawText:
 	push {lr}
@@ -344,6 +420,10 @@ endDrawText:
 initScreen:
 
 	push {lr}
+	
+west2:
+	ldr r5, =boundsInfo
+	ldr r5, [r5, #16]
 
 	bl drawBounds
 	bl scoreScreen	
