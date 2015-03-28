@@ -31,12 +31,18 @@
 .globl newColor
 .globl quitColor
 .globl beginComputerObjects
+.globl computerDirectionInfo
+.globl computerShootInfo
+.globl beginComputerBulletObjects
+.globl beginBulletObjects
+.globl Pawn1Bullet
+
 
 
 .section .data
 beginObjects:
 Player:
-		.int 48 // SE x value
+		.int 16 // SE x value
 		.int 47 // SE y value
 		.int 16  // size value
 		.int 16 // speed
@@ -47,173 +53,171 @@ Player:
 
 beginComputerObjects:		
 Pawn1:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 47 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 47 // SE y valuelue
 Pawn2:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 95 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 95 // SE y value
 		
 Pawn3:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 143 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 143 // SE y value
 		
 Pawn4:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 191 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 191 // SE y value
 Pawn5:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 239 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 239 // SE y value
 		
 Pawn6:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 287 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 287 // SE y valuelue
 		
 Pawn7:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 335 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 335 // SE y valuelue
 Pawn8:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 383 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 383 // SE y valuelue
 		
 Pawn9:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 431 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 431 // SE y valuelue
 		
-
-		
 Pawn10:
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 479 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xADD8E6// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 944 // SE x value 
+		.int 928 // SE x value 
 		.int 479 // SE y value
 		
 Knight1:
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 63 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xA52A2A// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 63 // SE y value
 Knight2:
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 159 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xA52A2A// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 159 // SE y value
 Knight3:
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 255 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xA52A2A// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 255 // SE y value
 Knight4:
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 351 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xA52A2A// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 351 // SE y value
 Knight5:
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 447 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0xA52A2A// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 976 // SE x value 
+		.int 960 // SE x value 
 		.int 447 // SE y value
 		
 Queen1:
 
-		.int 1008 // SE x value 
+		.int 992 // SE x value 
 		.int 111 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0x4135B5// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 1008 // SE x value 
+		.int 992 // SE x value 
 		.int 111 // SE y value
 Queen2:
 
-		.int 1008 // SE x value 
+		.int 992 // SE x value 
 		.int 399 // SE y value
 		.int 16  // size value
 		.int 16 // speed
 		.int 0x4135B5// color
 		.int 1 // pawn present..  1 = present 0= not present
-		.int 1008 // SE x value 
+		.int 992 // SE x value 
 		.int 399 // SE y value
 		
 endCharacterObjects:
-
+beginBulletObjects:
 
 PlayerBullet:
 		.int 500 // SE x value
@@ -224,7 +228,182 @@ PlayerBullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		
+beginComputerBulletObjects:
+
+Pawn1Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn2Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn3Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn4Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn5Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn6Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn7Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn8Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn9Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Pawn10Bullet:
+		.int 1119 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xADD8E6 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Knight1Bullet:
+		.int 500 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xA52A2A // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Knight2Bullet:
+		.int 500 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xA52A2A // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Knight3Bullet:
+		.int 500 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xA52A2A // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Knight4Bullet:
+		.int 500 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xA52A2A // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Knight5Bullet:
+		.int 500 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0xA52A2A // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Queen1Bullet:
+		.int 500 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0x4135B5 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
+Queen2Bullet:
+		.int 500 // SE x value
+		.int 500 // SE y value
+		.int 4 //bullet size
+		.int 16 // speed
+		.int 0x4135B5 // color
+		.int 0 //bullet present.. 1 = present 0= not present
+		.int 500 // SE init x value
+		.int 500 // SE init y value
+		
 endObjects:		
+		
+		
 		
 SNES_Button:		
 		.int 0 // button value
@@ -340,7 +519,12 @@ Queen:
 endQueen:
 
 computerDirectionInfo:
-	.int 0 //direction value (0 = down, 1 = forward, 2 = up)
+	.int 0 //direction value (0 = down, 1 = forward at bottom, 2 = up, 3 = forward at top )
 	.int 17 //max north/south movements
 	.int 1 //max west movement
 	.int 0 //current movement
+	.int 0 //intial reset value
+	
+computerShootInfo:
+	.int	Pawn1Bullet, beginComputerObjects
+

@@ -16,52 +16,25 @@ main:
 	bl InitFrameBuffer
 	cmp r0, #0
 	beq haltLoop$
-
-	bl SNES
 	
-west1:	
-	ldr r5, =boundsInfo
-	ldr r5, [r5, #16]
+	bl SNES
 
 	bl initScreen
 	
 	bl beginLoop
 
-test1:
 	ldr	r0, =beginObjects
 	ldr r1, =endCharacterObjects
 	bl 	InitialStateLoop
 	
-	
-/*	bl scoreScreen
-	ldr r0, =pauseBoundsInfo
-	bl drawPBack
-	bl pauseScreen
-	bl drawBounds
-	ldr	r0, =pauseBoundsInfo*/
-	
-	
-
-	//bl drawPauseBounds
-	//bl startScreen
 	ldr r9, =0x000fffff
 	bl delay
-	
-
-
-
-	
-	
-	
 	
 mainLoop:
 	ldr r9, =0x000fffff
 	bl delay
 	
 	bl SNES_Input
-	
-checkInput:
-
 	
 	ldr r1, =SNES_Button
 	
@@ -71,9 +44,13 @@ checkInput:
 	
 	bl		ParseSNES
 	
+	ldr	r0, =beginComputerObjects
+	ldr	r1, =endCharacterObjects
+	bl computerMoveLoop
+	
+	bl compStartShoot
+	
 	bl updateBullet
-	
-	
 	
 	bl updateState
 	

@@ -4,6 +4,8 @@
 .globl 		moveDown
 .globl 		moveUp
 .globl		startShoot
+.globl		computerMoveLoop
+.globl		compStartShoot
 
 
 
@@ -162,11 +164,8 @@ endUp:
 startShoot:
 
 		push {r4-r12, lr}
-		
-		
-		
 
-		ldr r5, [r4]     						// x value
+		ldr r5, [r4]     						// x value player
 		add	r5, #10								//bullet x value
 		ldr r6, [r4, #4] 						// y value
 		sub	r6, #6								//bullet y value
@@ -189,43 +188,202 @@ endStartShoot:
 
 		bx lr
 		
-/*computerMoveLoop: (Mar .25)
+compStartShoot:
+
+		push {r4-r12, lr}
+		
+		ldr r5, =computerShootInfo
+		ldr	r4, [r5]				//bullet address
+		ldr	r6,	[r5, #4]			//player address
+		ldr	r9, =endObjects
+		
+		
+		cmp	r4, r9
+		bne standardShoot
+		ldr	r4, =beginComputerBulletObjects
+		ldr	r6, =beginComputerObjects
+		
+standardShoot:
+		ldr r0, [r6, #20]
+		cmp	r0, #0
+		beq	endCompStartShoot
+		
+		ldr r7, [r6] 							//player x value     			
+		sub	r7, #22								//bullet x value
+		ldr r8, [r6, #4] 						//player y value
+		sub	r8, #6								//bullet y value
+		
+		ldr r0, [r4, #20]
+		cmp	r0, #1
+		beq	endCompStartShoot
+
+		str	r7, [r4]							//store bullet x pos to struct
+		str	r8, [r4, #4]						//store bullet y pos to struct
+		mov	r0, #1								//move presence flag value
+		str	r0, [r4, #20]						//set bullet presence
+		bl	moveLeft							//draw bullet
+		
+endCompStartShoot:
+		
+		add	r4, #32
+		add	r6, #32
+		str	r4, [r5]
+		str	r6, [r5, #4]
+	
+		pop {r4-r12, lr}
+
+		bx lr
+		
+computerMoveLoop: //(0 = down, 1 = forward at bottom, 2 = up, 3 = forward at top )
 
 			push {r4, lr}
 			mov r4, r0 						// start of Character objects address			
 			mov r9, r1						// end of Character objects address
-compLoop:								//r0 = x val, r1 = y val, r7 = color val, r8 = size val
-				
-			cmp r4, r9
-			beq endCompLoop			
+compLoop:									//r0 = x val, r1 = y val, r7 = color val, r8 = size val
+					
 			ldr	r5, =computerDirectionInfo
 			ldr	r6, [r5] //direction
+			cmp r6, #3
+			beq compMoveWestAtTop
 			cmp r6, #2
-			beq compMoveSouth
+			beq compMoveNorth
 			cmp	r6, #1
-			beq compMoveWest
+			beq compMoveWestAtBottom
 			
+compMoveSouth:
+			ldr r7, [r5, #12] //current movement
+			ldr	r8, [r5, #4]  //max move
+			cmp	r8, r7
+			beq compEndSouth
+			add	r7, #1
+			str r7, [r5, #12] //inc current movement
+			
+compSouthLoop:
+			ldr	r0, [r4, #20]
+			cmp	r0, #0
+			beq	updateCompMoveSouth
+			ldr	r0, [r4]
+			ldr	r1, [r4, #4]
+			ldr r7, [r4, #16]
+			ldr	r8, [r4, #8]
+			bl moveDown
+			
+updateCompMoveSouth:
+			add	r4, #32
+			cmp r4, r9
+			beq endCompLoop
+			b compSouthLoop
+			
+compEndSouth:
+			mov	r6, #1
+			str	r6, [r5]
+			mov r7, #0
+			str	r7, [r5, #12]
+
+			b endCompLoop
+			
+compMoveWestAtBottom:
+			ldr r7, [r5, #12] //current movement
+			ldr	r8, [r5, #8]  //max move
+			cmp	r8, r7
+			beq compEndWestAB
+			add	r7, #1
+			str r7, [r5, #12] //inc current movement
+
+compWestABLoop:
+			ldr	r0, [r4, #20]
+			cmp	r0, #0
+			beq	updateCompMoveWestAB
+			ldr	r0, [r4]
+			ldr	r1, [r4, #4]
+			ldr r7, [r4, #16]
+			ldr	r8, [r4, #8]
+			bl moveLeft
+			
+updateCompMoveWestAB:
+			add	r4, #32
+			cmp r4, r9
+			beq endCompLoop
+			b compWestABLoop
+
+compEndWestAB:
+			mov	r6, #2
+			str	r6, [r5]
+			mov r7, #0
+			str	r7, [r5, #12]
+
+			b endCompLoop
+	
 compMoveNorth:
 			ldr r7, [r5, #12] //current movement
 			ldr	r8, [r5, #4]  //max move
 			cmp	r8, r7
 			beq compEndNorth
+			add	r7, #1
+			str r7, [r5, #12] //inc current movement
 			
-compendNorth:		
-
-compMoveWest:
-
-compMoveSout:
+compNorthLoop:
+			ldr	r0, [r4, #20]
+			cmp	r0, #0
+			beq	updateMoveCompNorth
+			ldr	r0, [r4]
+			ldr	r1, [r4, #4]
+			ldr r7, [r4, #16]
+			ldr	r8, [r4, #8]
 			
-compNextMove:
-			add r4, #32
-			b InitStateLoop
+updateMoveCompNorth:
+
+			bl moveUp
+			add	r4, #32
+			cmp r4, r9
+			beq endCompLoop
+			b compNorthLoop
+			
+compEndNorth:
+			mov	r6, #3
+			str	r6, [r5]
+			mov r7, #0
+			str	r7, [r5, #12]
+
+			b endCompLoop
+			
+
+compMoveWestAtTop:
+			ldr r7, [r5, #12] //current movement
+			ldr	r8, [r5, #8]  //max move
+			cmp	r8, r7
+			beq compEndWestAT
+			add	r7, #1
+			str r7, [r5, #12] //inc current movement
+
+compWestATLoop:
+			ldr	r0, [r4, #20]
+			cmp	r0, #0
+			beq	updateMoveCompWestAT
+			ldr	r0, [r4]
+			ldr	r1, [r4, #4]
+			ldr r7, [r4, #16]
+			ldr	r8, [r4, #8]
+updateMoveCompWestAT:
+			bl moveLeft
+			add	r4, #32
+			cmp r4, r9
+			beq endCompLoop
+			b compWestATLoop
+
+compEndWestAT:
+			mov	r6, #0
+			str	r6, [r5]
+			mov r7, #0
+			str	r7, [r5, #12]
+
+			b endCompLoop
 			
 			
 endCompLoop:
 			
 			pop {r4, lr}
-			bx lr*/
+			bx lr
 
 
 

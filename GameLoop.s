@@ -100,26 +100,16 @@ SNESGET:
 		ldr r0, =pauseBoundsInfo
 		ldr r1, =0x66FF66
 		str  r1, [r0, #16]
-		
-
-
-test:	
-		
+	
 		cmp r4, #2
+		bne	notNewGame
+
 		ldr r0, =beginObjects
 		ldr r1, =endObjects
-		bleq clearStateLoop
-test3:
-
-
-west6:
-		ldr r5, =boundsInfo
-		ldr r5, [r5, #16]
+		bl clearStateLoop
+		b	_start
 		
-		
-		cmp r4, #2
-		beq	_start
-
+notNewGame:	
 		
 		cmp r4, #3
 		bleq resultLose
@@ -205,58 +195,22 @@ needBreak:
 
 	mov	r0, r12
 
-
-	
-
 	ldr 	r11, =0xf7ff
 	cmp 	r12, r11
 	bleq	moveUp
 	
-	/*
-	mov	r11, #1
-	lsl	r11, #11
-	ands	r11, r12
-	bleq	moveUp*/
-	
-	
-	
 	ldr 	r11, =0xfbff
 	cmp 	r12, r11
 	bleq	moveDown
-	
-	
-	
-	//conlan code
-	/*mov	r11, #1
-	lsl	r11, #10
-	ands	r11, r12
-	bleq	moveDown */
-	
-	
+
 	ldr 	r11, =0xfdff
 	cmp 	r12, r11
 	bleq	moveLeft
-	
-	//conlan code
-	/*mov	r11, #1
-	lsl	r11, #9
-	ands	r11, r0 
-	bleq	moveLeft*/
-	
-	
+
 	ldr 	r11, =0xfeff
 	cmp 	r12, r11
 	bleq	moveRight
-	
-	//conlan code
-	
-	/*
-	mov	r11, #1
-	lsl	r11, #8
-	ands	r11, r12
-	bleq	moveRight*/
-	
-	
+
 	mov	r11, #1
 	lsl	r11, #7
 	ands	r11, r12
@@ -270,10 +224,6 @@ needBreak:
 	pop	{lr}
 	bx lr
 	
-startFun:
-
-	bx lr
-	
 updateBullet:
 	
 		push {lr}
@@ -281,8 +231,22 @@ updateBullet:
 		ldr r4, =PlayerBullet
 		ldr r0, [r4, #20]
 		cmp	r0, #0
-		beq	endUpdateBullet
+		beq	loadBullets
 		bl moveRight
+		
+loadBullets:
+		ldr	r4, =beginComputerBulletObjects
+		ldr	r9, =endObjects
+		ldr r0, [r4]
+updateCompBullet:
+
+		cmp	r4, r9
+		beq	endUpdateBullet		
+		ldr r0, [r4, #20]
+		cmp	r0, #1		
+		bleq moveLeft
+		add	r4, #32
+		b	updateCompBullet
 		
 endUpdateBullet:
 		pop {lr}
@@ -291,74 +255,109 @@ endUpdateBullet:
 
 		
 updateState:
+
 			push {lr}
+			
+			ldr r0, =beginComputerObjects
+			ldr	r1, =endObjects
+			ldr	r2, =boundsInfo
+			bl checkBounds
+			ldr r0, =beginObjects
+			ldr	r1, =endObjects
+			bl removeObjects
 	
-			ldr r4, =PlayerBullet
-			bl removeObject
 			pop {lr}
 			bx lr
-
-		
-removeObject:
-			push {r4, r5, lr}
-				
-			ldr r5, [r4]     						// x value
-			ldr r6, [r4, #4] 						// y value
-			ldr r7, =0x000000 						// color changed to black
-			ldr r8, [r4, #8] 						// size
-			ldr r9, [r4, #20]						// check to see if object exists
-			cmp	r9, #0								// if r9 == 1, object exists, if r9 =0 object does not exist
 			
-		
-			beq drawBlack							// Object does not exist, draw black
 			
-			ldr	r10, =boundsInfo					
-			ldr	r10, [r10, #12]						//load east bound
-			add	r11, r5, #16						//set correct bound				
-			cmp	r11, r10							//check correct bound
-			blt	endRemove 
-					
+checkBounds:
 
-drawBlack:
+		push {lr}
 		
-		bl	drawSquare
-		mov	r9, #0	
-		str	r9, [r4, #20]
+		mov r4, r0		//object address
+		mov	r5, r1		//end of objects
+		mov	r6, r2		//boundsinfo
+		ldr	r7,	[r6, #8] //west bound
+		ldr	r8, [r6, #12] //east bound
 		
-endRemove:
-				
-			pop {r4, r5, lr}
-			bx lr
+topOfBounds:		
+		ldr	r9, [r4] //object x coord
+		add r9, #16
+		cmp	r9, r8 //cmp on east bound
+		bgt	outOfBounds
+		ldr	r9, [r4] //object x coord
+		sub r9, #16
+		cmp	r9, r7 //cmp on west bound
+		bgt	endCheckBounds
+		
+outOfBounds:
+		mov	r3,	#0
+		str	r3, [r4, #20]
+		
+endCheckBounds:
+		add	r4, #32
+		cmp	r4, r5
+		bne	topOfBounds		
+		pop {lr}
+		bx lr
+
+
+removeObjects:
+
+		push {lr}
+		
+		mov	r4, r0		//object address
+		mov	r11, r1		//end object address
+		
+topOfRemove:
+		ldr r9, [r4, #20]						// check to see if object exists
+		cmp	r9, #0								// if r9 == 1, object exists, if r9 =0 object does not exist
+		bne continueRemove
+		
+		ldr r5, [r4]     						// object x value
+		ldr r6, [r4, #4] 						// object y value
+		ldr r7, =0x000000 						// color changed to black
+		ldr r8, [r4, #8] 						// object size
+		bl drawSquare
+		mov r0, #500
+		mov r1, #20
+		str r0, [r4]
+		str r1, [r4, #4]
+		
+continueRemove:
+		add	r4, #32
+		cmp	r4, r11
+		bne	topOfRemove		
+	
+		pop {lr}
+		bx lr
+		
 			
 clearStateLoop:
 			push {r4, lr}
-west4:
-		ldr r5, =boundsInfo
-		ldr r5, [r5, #16]
 		
 			mov r4, r0 						// start of objects address			
 			mov r5, r1						// end of objects address
 stateLoop:
-			
-		
-			
+				
 			cmp r4, r5
 			beq endClearStateLoop
 			
 			mov	r6, #0
 			str r6, [r4, #20]
-			
-			bl removeObject
-			ldr r6, [r4, #24]
-			str r6, [r4]
-			ldr r6, [r4, #28]
-			str r6, [r4, #4]
+
 			add r4, #32
 			b stateLoop
 			
 			
 endClearStateLoop:
-			
+			ldr r0, =beginObjects
+			ldr	r1, =endObjects
+			bl removeObjects
+			ldr	r0, =beginObjects
+			ldr r1, =endCharacterObjects
+			bl 	InitialStateLoop
+
 			pop {r4, lr}
 			bx lr		
 
@@ -368,21 +367,35 @@ InitialStateLoop:
 			mov r4, r0 						// start of Character objects address			
 			mov r9, r1						// end of Character objects address
 InitStateLoop:								//r0 = x val, r1 = y val, r7 = color val, r8 = size val
+
 				
 			cmp r4, r9
 			beq endInitialStateLoop
-			ldr r5, [r4]
+			
+			mov	r2, #1						//reset init values
+			str	r2, [r4, #20]
+			ldr r2, [r4, #24]				
+			str r2, [r4]
+			ldr r2, [r4, #28]
+			str r2, [r4, #4]
+
+			
+			ldr r5, [r4]					//redraw objects
 			ldr	r6, [r4, #4]
 			ldr r7, [r4, #16]
 			ldr r8, [r4, #8]
 			
 			bl drawSquare
-test2:			
+						
 			add r4, #32
 			b InitStateLoop
 			
 			
 endInitialStateLoop:
+			ldr	r5, =computerDirectionInfo //reassert comp direction info
+			ldr	r6, [r5, #16]
+			str	r6,	[r5]
+			str	r6,	[r5, #12]
 			
 			pop {r4, lr}
 			bx lr
