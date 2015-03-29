@@ -12,8 +12,7 @@
 .globl pauseLoop
 .globl resultWon
 .globl InitialStateLoop
-
-
+.globl playerBulletHits
 
 beginLoop:
 		push {lr}
@@ -245,7 +244,7 @@ updateCompBullet:
 		ldr r0, [r4, #20]
 		cmp	r0, #1		
 		bleq moveLeft
-		add	r4, #32
+		add	r4, #40         												//
 		b	updateCompBullet
 		
 endUpdateBullet:
@@ -294,8 +293,10 @@ outOfBounds:
 		mov	r3,	#0
 		str	r3, [r4, #20]
 		
+		//bl drawSquare
+		
 endCheckBounds:
-		add	r4, #32
+		add	r4, #40													         //
 		cmp	r4, r5
 		bne	topOfBounds		
 		pop {lr}
@@ -325,7 +326,7 @@ topOfRemove:
 		str r1, [r4, #4]
 		
 continueRemove:
-		add	r4, #32
+		add	r4, #40													         //
 		cmp	r4, r11
 		bne	topOfRemove		
 	
@@ -346,7 +347,7 @@ stateLoop:
 			mov	r6, #0
 			str r6, [r4, #20]
 
-			add r4, #32
+			add r4, #40											         //
 			b stateLoop
 			
 			
@@ -378,6 +379,8 @@ InitStateLoop:								//r0 = x val, r1 = y val, r7 = color val, r8 = size val
 			str r2, [r4]
 			ldr r2, [r4, #28]
 			str r2, [r4, #4]
+			ldr	r2, [r4, #36]
+			str	r2, [r4, #32]
 
 			
 			ldr r5, [r4]					//redraw objects
@@ -387,7 +390,7 @@ InitStateLoop:								//r0 = x val, r1 = y val, r7 = color val, r8 = size val
 			
 			bl drawSquare
 						
-			add r4, #32
+			add r4, #40												         //
 			b InitStateLoop
 			
 			
@@ -399,11 +402,108 @@ endInitialStateLoop:
 			
 			pop {r4, lr}
 			bx lr
+			
+			
+playerBulletHits:
+
+		push {lr}
 		
-			
+		mov	r4, r0 		//address of playerbullet
+		mov	r5, r1		//address of beginning computer players
+		mov	r6, r2		//address of end computer players
+		
+		ldr	r3, [r4, #20] //bullet exists value
+		cmp	r3, #0
+		beq	endPlayerBulletHits
 
+topPlayerBulletHitsLoop:
 
-			
+		ldr	r3, [r5, #20]
+		cmp	r3, #0
+		beq	endPlayerBulletHitsLoop
+		
+		ldr	r7, [r4]  //player bullet x value
+		add	r7,	#6	  //correct bullet x offset
+		ldr	r8, [r5]  //computer player x value
+		cmp	r7, r8
+		bne	endPlayerBulletHitsLoop
+		
+		ldr	r7, [r4, #4]  //player bullet y value
+		add	r7,	#6	  //correct bullet y offset
+		ldr	r8, [r5, #4]  //computer player y value
+		cmp	r7, r8
+		beq	goodPlayerBulletHit
+		
+		/*ldr	r7, [r4]  //player bullet x value
+		add	r7,	#22	  //correct bullet x offset
+		ldr	r8, [r5]  //computer player x value
+		cmp	r7, r8
+		bne	endPlayerBulletHitsLoop*/
+		
+		ldr	r7, [r4, #4]  //player bullet y value
+		add	r7,	#22	  //correct bullet y offset
+		ldr	r8, [r5, #4]  //computer player y value
+		cmp	r7, r8
+		beq	goodPlayerBulletHit
+		
+		ldr	r7, [r4, #4]  //player bullet y value
+		sub	r7,	#10	  //correct bullet y offset
+		ldr	r8, [r5, #4]  //computer player y value
+		cmp	r7, r8
+		bne	endPlayerBulletHitsLoop
+		
+goodPlayerBulletHit:
+	
+		ldr	r3, [r5, #32]	//computer hardness value
+		sub	r3, #1					
+		str	r3, [r5, #32]	//store back 
+		
+		mov	r3, #0
+		str	r3, [r4, #20]	//set player bullet exists value
+		b	endPlayerBulletHits
+
+endPlayerBulletHitsLoop:
+		add r5, #40													//set address of next computer player
+		cmp	r5,	r6		//compare to end address
+		beq	endPlayerBulletHits
+		b topPlayerBulletHitsLoop
+		
+		
+endPlayerBulletHits:
+		ldr	r0, =beginComputerObjects
+		ldr	r1, =endCharacterObjects
+		bl	killNoHardness
+		
+
+		pop {lr}
+		bx	lr
+		
+killNoHardness:
+
+		push {lr}
+		
+		mov	r4, r0	//beginning computer objects adress
+		mov	r5, r1  //end object adress
+
+killLoopTop:
+		ldr	r6,	[r4, #32] //load hardness
+		cmp	r6, #0
+		bne	noKill
+		mov	r1, #0
+		str	r1, [r4, #20] //set exists value to 0
+test:
+		ldr	r1, [r4, #20]
+		ldr	r2, [r4, #32]
+		
+noKill:
+		add	r4, #40												//
+		cmp	r4, r5
+		bne	killLoopTop
+		
+		pop {lr}
+		bx lr
+		
+	
 drawText:
 	push {lr}
 	

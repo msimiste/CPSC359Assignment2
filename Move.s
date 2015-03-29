@@ -225,8 +225,8 @@ standardShoot:
 		
 endCompStartShoot:
 		
-		add	r4, #32
-		add	r6, #32
+		add	r4, #40         //
+		add	r6, #40
 		str	r4, [r5]
 		str	r6, [r5, #4]
 	
@@ -269,7 +269,7 @@ compSouthLoop:
 			bl moveDown
 			
 updateCompMoveSouth:
-			add	r4, #32
+			add	r4, #40         //
 			cmp r4, r9
 			beq endCompLoop
 			b compSouthLoop
@@ -301,7 +301,7 @@ compWestABLoop:
 			bl moveLeft
 			
 updateCompMoveWestAB:
-			add	r4, #32
+			add	r4, #40         //
 			cmp r4, r9
 			beq endCompLoop
 			b compWestABLoop
@@ -334,7 +334,7 @@ compNorthLoop:
 updateMoveCompNorth:
 
 			bl moveUp
-			add	r4, #32
+			add	r4, #40         //
 			cmp r4, r9
 			beq endCompLoop
 			b compNorthLoop
@@ -366,7 +366,7 @@ compWestATLoop:
 			ldr	r8, [r4, #8]
 updateMoveCompWestAT:
 			bl moveLeft
-			add	r4, #32
+			add	r4, #40         //
 			cmp r4, r9
 			beq endCompLoop
 			b compWestATLoop

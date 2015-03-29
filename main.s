@@ -44,15 +44,22 @@ mainLoop:
 	
 	bl		ParseSNES
 	
+		ldr	r0, =PlayerBullet
+	ldr r1, =beginComputerObjects		//address of beginning computer players
+	ldr r2, =endCharacterObjects		//address of end computer players
+	bl	playerBulletHits
+	
 	ldr	r0, =beginComputerObjects
 	ldr	r1, =endCharacterObjects
 	bl computerMoveLoop
 	
 	bl compStartShoot
-	
+		
 	bl updateBullet
 	
 	bl updateState
+	
+
 	
 	b mainLoop
 

@@ -50,6 +50,8 @@ Player:
 		.int 1 // player present..  1 = present 0= not present
 		.int 48 // SE init x value
 		.int 47 // SE init y value
+		.int 0  // hardness
+		.int 0  // init hardness
 
 beginComputerObjects:		
 Pawn1:
@@ -61,6 +63,8 @@ Pawn1:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 47 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
 Pawn2:
 		.int 928 // SE x value 
 		.int 95 // SE y value
@@ -70,6 +74,8 @@ Pawn2:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 95 // SE y value
+		.int 1  // hardness
+		.int 1	//init hardness
 		
 Pawn3:
 		.int 928 // SE x value 
@@ -80,6 +86,8 @@ Pawn3:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 143 // SE y value
+		.int 1  // hardness
+		.int 1	//init hardness
 		
 Pawn4:
 		.int 928 // SE x value 
@@ -90,6 +98,9 @@ Pawn4:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 191 // SE y value
+		.int 1  // hardness
+		.int 1	//init hardness
+		
 Pawn5:
 		.int 928 // SE x value 
 		.int 239 // SE y value
@@ -99,6 +110,8 @@ Pawn5:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 239 // SE y value
+		.int 1  // hardness
+		.int 1	//init hardness
 		
 Pawn6:
 		.int 928 // SE x value 
@@ -109,6 +122,8 @@ Pawn6:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 287 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
 		
 Pawn7:
 		.int 928 // SE x value 
@@ -119,6 +134,8 @@ Pawn7:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 335 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
 Pawn8:
 		.int 928 // SE x value 
 		.int 383 // SE y value
@@ -128,6 +145,8 @@ Pawn8:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 383 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
 		
 Pawn9:
 		.int 928 // SE x value 
@@ -138,6 +157,8 @@ Pawn9:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 431 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
 		
 Pawn10:
 		.int 928 // SE x value 
@@ -148,6 +169,8 @@ Pawn10:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 928 // SE x value 
 		.int 479 // SE y value
+		.int 1  // hardness
+		.int 1	//init hardness
 		
 Knight1:
 		.int 960 // SE x value 
@@ -158,6 +181,9 @@ Knight1:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 960 // SE x value 
 		.int 63 // SE y value
+		.int 2  // hardness
+		.int 2	//init hardness
+		
 Knight2:
 		.int 960 // SE x value 
 		.int 159 // SE y value
@@ -167,6 +193,9 @@ Knight2:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 960 // SE x value 
 		.int 159 // SE y value
+		.int 2  // hardness
+		.int 2	//init hardness
+		
 Knight3:
 		.int 960 // SE x value 
 		.int 255 // SE y value
@@ -176,6 +205,9 @@ Knight3:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 960 // SE x value 
 		.int 255 // SE y value
+		.int 2  // hardness
+		.int 2	//init hardness
+		
 Knight4:
 		.int 960 // SE x value 
 		.int 351 // SE y value
@@ -185,6 +217,9 @@ Knight4:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 960 // SE x value 
 		.int 351 // SE y value
+		.int 2  // hardness
+		.int 2	//init hardness
+		
 Knight5:
 		.int 960 // SE x value 
 		.int 447 // SE y value
@@ -194,6 +229,8 @@ Knight5:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 960 // SE x value 
 		.int 447 // SE y value
+		.int 2  // hardness
+		.int 2	//init hardness
 		
 Queen1:
 
@@ -205,6 +242,9 @@ Queen1:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 992 // SE x value 
 		.int 111 // SE y value
+		.int 5  // hardness
+		.int 5	//init hardness
+		
 Queen2:
 
 		.int 992 // SE x value 
@@ -215,6 +255,8 @@ Queen2:
 		.int 1 // pawn present..  1 = present 0= not present
 		.int 992 // SE x value 
 		.int 399 // SE y value
+		.int 5  // hardness
+		.int 5	//init hardness
 		
 endCharacterObjects:
 beginBulletObjects:
@@ -228,6 +270,8 @@ PlayerBullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 beginComputerBulletObjects:
 
@@ -240,6 +284,8 @@ Pawn1Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn2Bullet:
 		.int 1119 // SE x value
@@ -250,6 +296,8 @@ Pawn2Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn3Bullet:
 		.int 1119 // SE x value
@@ -260,6 +308,8 @@ Pawn3Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn4Bullet:
 		.int 1119 // SE x value
@@ -270,6 +320,8 @@ Pawn4Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn5Bullet:
 		.int 1119 // SE x value
@@ -280,6 +332,8 @@ Pawn5Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn6Bullet:
 		.int 1119 // SE x value
@@ -290,6 +344,8 @@ Pawn6Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn7Bullet:
 		.int 1119 // SE x value
@@ -300,6 +356,8 @@ Pawn7Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn8Bullet:
 		.int 1119 // SE x value
@@ -310,6 +368,8 @@ Pawn8Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn9Bullet:
 		.int 1119 // SE x value
@@ -320,6 +380,8 @@ Pawn9Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Pawn10Bullet:
 		.int 1119 // SE x value
@@ -330,6 +392,8 @@ Pawn10Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Knight1Bullet:
 		.int 500 // SE x value
@@ -340,6 +404,8 @@ Knight1Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Knight2Bullet:
 		.int 500 // SE x value
@@ -350,6 +416,8 @@ Knight2Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Knight3Bullet:
 		.int 500 // SE x value
@@ -360,6 +428,8 @@ Knight3Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Knight4Bullet:
 		.int 500 // SE x value
@@ -370,6 +440,8 @@ Knight4Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Knight5Bullet:
 		.int 500 // SE x value
@@ -380,6 +452,8 @@ Knight5Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Queen1Bullet:
 		.int 500 // SE x value
@@ -390,6 +464,8 @@ Queen1Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 Queen2Bullet:
 		.int 500 // SE x value
@@ -400,6 +476,8 @@ Queen2Bullet:
 		.int 0 //bullet present.. 1 = present 0= not present
 		.int 500 // SE init x value
 		.int 500 // SE init y value
+		.int 1  // bullet hardness
+		.int 1  // bullet hardness
 		
 endObjects:		
 		
