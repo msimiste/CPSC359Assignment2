@@ -7,6 +7,7 @@
 .globl drawPauseBounds
 .globl drawPBack
 .globl drawPBlack
+.globl forceDrawCharacter
 
 drawPBlack:
 
@@ -52,6 +53,25 @@ lineLoop:
 		
 		pop {r4-r12, lr}
 		bx lr
+		
+forceDrawCharacter:
+
+		push {r4-r12, lr}
+		
+		mov	r4, r0			//player adress
+		
+		ldr r5, [r4]     						// x value
+		ldr r6, [r4, #4] 						// y value
+		ldr r7, [r4, #16]						// color
+		ldr r8, [r4, #8] 						// size
+		bl drawSquare
+		
+		pop {r4-r12, lr}
+		bx	lr
+
+		
+		
+	
 		
 drawBounds:
 

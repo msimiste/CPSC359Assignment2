@@ -36,6 +36,18 @@
 .globl beginComputerBulletObjects
 .globl beginBulletObjects
 .globl Pawn1Bullet
+.globl beginBarriers
+.globl endBarriers
+.globl ScoreHex
+.globl endScoreHex
+.globl ScoreInt
+.globl endScoreInt
+.globl startQueens
+.globl startKnights
+.globl OldScoreInt
+.globl endOldScoreInt
+.globl InitScoreInt
+.globl endInitScoreInt
 
 
 
@@ -48,10 +60,835 @@ Player:
 		.int 16 // speed
 		.int 0xcccc00 // color
 		.int 1 // player present..  1 = present 0= not present
-		.int 48 // SE init x value
+		.int 16 // SE init x value
 		.int 47 // SE init y value
 		.int 0  // hardness
 		.int 0  // init hardness
+		
+beginBarriers:
+
+Barrier1Block1:
+		.int 64 // SE x value 
+		.int 95 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 95 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block2:
+		.int 80 // SE x value 
+		.int 95 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 95 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block3:
+		.int 96 // SE x value 
+		.int 95 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 95 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block4:
+		.int 112 // SE x value 
+		.int 95 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 95 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block5:
+		.int 64 // SE x value 
+		.int 111 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 111 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block6:
+		.int 80 // SE x value 
+		.int 111 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 111 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block7:
+		.int 96 // SE x value 
+		.int 111 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 111 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block8:
+		.int 112 // SE x value 
+		.int 111 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 111 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block9:
+		.int 64 // SE x value 
+		.int 127 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 127 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block10:
+		.int 80 // SE x value 
+		.int 127 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 127 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block11:
+		.int 96 // SE x value 
+		.int 127 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 127 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block12:
+		.int 112 // SE x value 
+		.int 127 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 127 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block13:
+		.int 64 // SE x value 
+		.int 143 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 143 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block14:
+		.int 80 // SE x value 
+		.int 143 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 143 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block15:
+		.int 96 // SE x value 
+		.int 143 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 143 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block16:
+		.int 112 // SE x value 
+		.int 143 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 143 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block17:
+		.int 64 // SE x value 
+		.int 159 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 159 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block18:
+		.int 80 // SE x value 
+		.int 159 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 159 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block19:
+		.int 96 // SE x value 
+		.int 159 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 159 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block20:
+		.int 112 // SE x value 
+		.int 159 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 159 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block21:
+		.int 64 // SE x value 
+		.int 175 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 175 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block22:
+		.int 80 // SE x value 
+		.int 175 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 175 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier1Block23:
+		.int 96 // SE x value 
+		.int 175 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 175 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier1Block24:
+		.int 112 // SE x value 
+		.int 175 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 175 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+		
+Barrier2Block1:
+		.int 64 // SE x value 
+		.int 351 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 351 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block2:
+		.int 80 // SE x value 
+		.int 351 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 351 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier2Block3:
+		.int 96 // SE x value 
+		.int 351 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 351 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block4:
+		.int 112 // SE x value 
+		.int 351 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 351 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier2Block5:
+		.int 64 // SE x value 
+		.int 367 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 367 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block6:
+		.int 80 // SE x value 
+		.int 367 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 367 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier2Block7:
+		.int 96 // SE x value 
+		.int 367 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 367 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block8:
+		.int 112 // SE x value 
+		.int 367 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 367 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+Barrier2Block9:
+		.int 64 // SE x value 
+		.int 383 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 383 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block10:
+		.int 80 // SE x value 
+		.int 383 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 383 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier2Block11:
+		.int 96 // SE x value 
+		.int 383 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 383 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block12:
+		.int 112 // SE x value 
+		.int 383 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 383 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier2Block13:
+		.int 64 // SE x value 
+		.int 399 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 399 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block14:
+		.int 80 // SE x value 
+		.int 399 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 399 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier2Block15:
+		.int 96 // SE x value 
+		.int 399 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 399 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block16:
+		.int 112 // SE x value 
+		.int 399 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 399 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier2Block17:
+		.int 64 // SE x value 
+		.int 415 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 415 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block18:
+		.int 80 // SE x value 
+		.int 415 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 415 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier2Block19:
+		.int 96 // SE x value 
+		.int 415 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 415 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier2Block20:
+		.int 112 // SE x value 
+		.int 415 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 415 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block1:
+		.int 64 // SE x value 
+		.int 591 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 591 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block2:
+		.int 80 // SE x value 
+		.int 591 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 591 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block3:
+		.int 96 // SE x value 
+		.int 591 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 591 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block4:
+		.int 112 // SE x value 
+		.int 591 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 591 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block5:
+		.int 64 // SE x value 
+		.int 607 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 607 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block6:
+		.int 80 // SE x value 
+		.int 607 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 607 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block7:
+		.int 96 // SE x value 
+		.int 607 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 607 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block8:
+		.int 112 // SE x value 
+		.int 607 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 607 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block9:
+		.int 64 // SE x value 
+		.int 623 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 623 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block10:
+		.int 80 // SE x value 
+		.int 623 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 623 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness/
+		
+		
+Barrier3Block11:
+		.int 96 // SE x value 
+		.int 623 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 623 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block12:
+		.int 112 // SE x value 
+		.int 623 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 623 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block13:
+		.int 64 // SE x value 
+		.int 639 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 639 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block14:
+		.int 80 // SE x value 
+		.int 639 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 639 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block15:
+		.int 96 // SE x value 
+		.int 639 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 639 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block16:
+		.int 112 // SE x value 
+		.int 639 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 639 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block17:
+		.int 64 // SE x value 
+		.int 655 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 655 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block18:
+		.int 80 // SE x value 
+		.int 655 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 655 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block19:
+		.int 96 // SE x value 
+		.int 655 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 655 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block20:
+		.int 112 // SE x value 
+		.int 655 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 655 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block21:
+		.int 64 // SE x value 
+		.int 671 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 64 // SE init x value 
+		.int 671 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block22:
+		.int 80 // SE x value 
+		.int 671 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 80 // SE init x value 
+		.int 671 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+Barrier3Block23:
+		.int 96 // SE x value 
+		.int 671 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 96 // SE init x value 
+		.int 671 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+
+Barrier3Block24:
+		.int 112 // SE x value 
+		.int 671 // SE y value
+		.int 16  // size value
+		.int 16 // speed
+		.int 0x66FF66 // color
+		.int 1 // pawn present..  1 = present 0= not present
+		.int 112 // SE init x value 
+		.int 671 // SE y valuelue
+		.int 1  // hardness
+		.int 1	//init hardness
+		
+		
+
+
+		
+endBarriers:
 
 beginComputerObjects:		
 Pawn1:
@@ -171,6 +1008,8 @@ Pawn10:
 		.int 479 // SE y value
 		.int 1  // hardness
 		.int 1	//init hardness
+
+startKnights:
 		
 Knight1:
 		.int 960 // SE x value 
@@ -232,6 +1071,8 @@ Knight5:
 		.int 2  // hardness
 		.int 2	//init hardness
 		
+startQueens:
+		
 Queen1:
 
 		.int 992 // SE x value 
@@ -259,6 +1100,7 @@ Queen2:
 		.int 5	//init hardness
 		
 endCharacterObjects:
+		
 beginBulletObjects:
 
 PlayerBullet:
@@ -567,22 +1409,26 @@ GameLost:
 
 endGameLost:
 
-ScoreOnes:
-		.int '#0'	// initial
-		//.int 5	// pawn increment/decrement
-		//.int 10 // rook increment/decrement
-		//.int 100 // queen increment/decrement
+BlankHex:
+		.int 0xdb, 0xdb, 0xdb, 0xdb
+		
+endBlankHex:
 
-endScoreOnes:
+ScoreHex:
+		.int 0x30,  0x31, 48, 0x30
+endScoreHex:
 
-ScoreTens:
-		.int '#5' // initial
+ScoreInt:
+		.int 100
+endScoreInt:
 
-endScoreTens:
+OldScoreInt:
+		.int 100
+endOldScoreInt:
 
-ScoreHuns:
-
-endScoreHuns:
+InitScoreInt:
+		.int 100
+endInitScoreInt:
 
 Rook:
 	.int 0 // initial health
@@ -605,4 +1451,6 @@ computerDirectionInfo:
 	
 computerShootInfo:
 	.int	Pawn1Bullet, beginComputerObjects
+	
+
 

@@ -14,15 +14,6 @@
 .globl InitialStateLoop
 .globl playerBulletHits
 .globl computerBulletHits
-.globl computerPlayerCollision
-.globl killNoHardness
-.globl barrierHit
-.globl drawScore
-.globl parseScore
-.globl calcScore
-.globl drawScoreBlack
-.globl checkEndCondition
-
 
 beginLoop:
 		push {lr}
@@ -267,7 +258,7 @@ updateState:
 
 			push {lr}
 			
-			ldr r0, =beginBarriers
+			ldr r0, =beginComputerObjects
 			ldr	r1, =endObjects
 			ldr	r2, =boundsInfo
 			bl checkBounds
@@ -391,11 +382,6 @@ InitStateLoop:								//r0 = x val, r1 = y val, r7 = color val, r8 = size val
 			str r2, [r4, #4]
 			ldr	r2, [r4, #36]
 			str	r2, [r4, #32]
-			
-			ldr	r2, =InitScoreInt
-			ldr	r3, [r2]
-			ldr	r2, =ScoreInt
-			str	r3, [r2]
 
 			
 			ldr r5, [r4]					//redraw objects
@@ -484,6 +470,10 @@ endPlayerBulletHitsLoop:
 		
 		
 endPlayerBulletHits:
+		ldr	r0, =beginComputerObjects
+		ldr	r1, =endCharacterObjects
+		bl	killNoHardness
+		
 
 		pop {lr}
 		bx	lr
@@ -494,6 +484,7 @@ computerBulletHits:
 		
 		mov	r4, r0 		//address of beginning computer bullet
 		mov	r5, r1		//address of end computer bullets
+		//mov	r6, r2		//address of player
 		ldr	r6, [r2]		//player's east x value
 		ldr	r7, [r2, #4]	//player's south y value
 	
@@ -522,10 +513,10 @@ computerBulletHitsLoop:
 		cmp	r6, r8		//compare x vals
 		beq	goodComputerBulletHitX
 
-		//ldr	r8, [r4]		//computer bullet x val
-		//add	r8, #38
-		//cmp	r6, r8		//compare x vals
-		//beq	goodComputerBulletHitX
+		ldr	r8, [r4]		//computer bullet x val
+		add	r8, #38
+		cmp	r6, r8		//compare x vals
+		beq	goodComputerBulletHitX
 
 		b	endComputerBulletHitsLoop
 
@@ -537,8 +528,6 @@ goodComputerBulletHitX:
 		bne	endComputerBulletHitsLoop
 
 goodComputerBulletHit:
-		bl	reducePlayerScore
-
 		mov	r3, #0
 		str	r3, [r4, #20]	//set player bullet exists value
 
@@ -551,208 +540,6 @@ endComputerBulletHits:
 
 		pop {lr}
 		bx lr
-		
-reducePlayerScore:
-
-		push {r4-r12, lr}
-		
-		ldr	r4, =ScoreInt
-		ldr	r5, [r4]
-		sub	r5, #10
-		str	r5, [r4]
-		
-		pop {r4-r12, lr}
-		bx	lr
-
-
-barrierHit:
-
-		push {lr}
-		
-		mov	r4, r0	//barrier begin address
-		mov	r5, r1	//barrier end address
-		//mov	r6, r2	//begin address of computer players and all bullets
-		
-barrierHitLoop:	
-		cmp r4, r5
-		beq barrierHitEnd
-		
-		ldr	r2,	=beginBulletObjects
-		ldr	r3,	=endObjects
-		//ldr r0, [r6, #8]
-		//cmp r0, #4
-		bl	bulletBarrierCheck
-		ldr r2, =beginComputerObjects
-		bl		CPUBarrierCheck
-		add r4, #40
-		b barrierHitLoop
-		
-
-barrierHitEnd:
-		
-		pop {lr}		
-		bx lr
-		
-bulletBarrierCheck:
-		
-		push {r4-r7,lr}
-		
-	
-		mov	r6, r2	//begin address of computer players and all bullets
-		mov	r7,	r3	//end address of above
-		
-		
-bulletBarrierLoop:		
-		cmp r6, r7
-		beq endBulletBarrierCheck
-	
-		ldr r8, [r4] 		//barriers x value
-		ldr r9, [r4, #4] 	//barriers y value
-		ldr r10, [r6]		//bulletts x value
-		add r10, #6			// offset
-		ldr r11, [r6, #4]	// bullets y value
-		add r11, #6			// offset
-		
-		cmp r8, r10
-		bne endBulletBarrierLoop	
-		
-		
-endBulletBarrierCheckX:		
-		cmp r9, r11
-		bne endBulletBarrierLoop
-		
-		mov r12, #0
-		str r12, [r4, #32]
-		str r12, [r6, #20]
-		// b endBulletBarrierCheck as there can only be 1 hit per bullet/round
-endBulletBarrierLoop:
-
-		add r6, #40
-		b bulletBarrierLoop	
-		
-endBulletBarrierCheck:
-		
-		pop {r4-r7, lr}
-		bx lr
-		
-		
-		
-CPUBarrierCheck:
-
-
-		push {r4-r7,lr}
-		
-	
-		mov	r6, r2	//begin address of computer players and all bullets
-		mov	r7,	r3	//end address of above
-		
-CPUBarrierLoop:
-
-		cmp r6, r7
-		beq endCPUBarrierCheck
-	
-		ldr r8, [r4] 		//barriers x value
-		ldr r9, [r4, #4] 	//barriers y value
-		ldr r10, [r6]		//CPU x value				
-		ldr r11, [r6, #4]	// CPU y value		
-		
-		cmp r8, r10
-		bne endCPUBarrierLoop
-
-endCPUBarrierCheckX:		
-		cmp r9, r11
-		bne endCPUBarrierLoop
-		
-		mov r12, #0
-		str r12, [r4, #20]
-		str r12, [r6, #20]																				//baspingle
-		// b endBulletBarrierCheck as there can only be 1 hit per bullet/round
-		
-endCPUBarrierLoop:
-
-		add r6, #40
-		b CPUBarrierLoop	
-
-endCPUBarrierCheck:
-
-		
-		pop {r4-r7, lr}
-		bx lr
-		
-		
-		
-		
-		
-		
-		
-computerPlayerCollision:
-
-		push {lr}
-		
-		mov	r4, r0 		//address of beginning computer characters
-		mov	r5, r1		//address of end computer characters
-		mov	r11, r2
-		ldr	r6, [r2]		//player's east x value
-		ldr	r7, [r2, #4]	//player's south y value
-	
-computerPlayerCollisionLoop:
-	
-		cmp	r4, r5
-		beq	endComputerPlayerCollision
-		
-		ldr	r3, [r4, #20] //computer player exists value
-		cmp	r3, #0
-		beq	endComputerPlayerCollisionLoop
-
-		ldr	r8, [r4]		//computer bullet x val
-		cmp	r6, r8		//compare x vals
-		beq	goodPlayerComputerCollisionX
-
-		/*ldr	r8, [r4]		//computer bullet x val
-		sub	r8, #10
-		cmp	r6, r8		//compare x vals
-		beq	goodPlayerComputerCollisionX
-
-		ldr	r8, [r4]		//computer bullet x val
-		sub	r8, #26
-		cmp	r6, r8		//compare x vals
-		beq	goodPlayerComputerCollisionX*/
-
-		b	endComputerPlayerCollisionLoop
-
-goodPlayerComputerCollisionX:
-
-		ldr	r9, [r4, #4]	//computer bullet y val
-		cmp	r7, r9		//compare y vals
-		bne	endComputerPlayerCollisionLoop
-
-goodPlayerComputerCollision:
-
-		bl	reducePlayerScore
-
-		mov	r3, #0
-		str	r3, [r4, #20]															//set computer player hardness value baspingle
-
-endComputerPlayerCollisionLoop:
-
-		add	r4, #40
-		b	computerPlayerCollisionLoop
-
-endComputerPlayerCollision:
-
-		pop {lr}
-		bx lr
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 killNoHardness:
 
@@ -767,9 +554,9 @@ killLoopTop:
 		bne	noKill
 		mov	r1, #0
 		str	r1, [r4, #20] //set exists value to 0
-//test:
-		//ldr	r1, [r4, #20]
-		//ldr	r2, [r4, #32]
+test:
+		ldr	r1, [r4, #20]
+		ldr	r2, [r4, #32]
 		
 noKill:
 		add	r4, #40												//
@@ -815,8 +602,7 @@ west2:
 	ldr r5, [r5, #16]
 
 	bl drawBounds
-	bl scoreScreen
-	bl drawScore	
+	bl scoreScreen	
 	bl startScreen
 	
 	pop {lr}
@@ -835,223 +621,6 @@ scoreScreen:
 	
 	pop {lr}
 	bx lr
-	
-drawScore:
-
-	push {lr}
-
-	ldr r0, =ScoreHex // score hex address value
-	ldr r1, =endScoreHex // end score hex address 
-	mov	r2,	#88
-	mov	r3, #16
-	ldr	r10, =0xcccc00 
-	bl drawText
-	
-	pop {lr}
-	bx lr
-	
-drawScoreBlack:
-
-	push {lr}
-
-	ldr r0, =ScoreHex // score hex address value
-	ldr r1, =endScoreHex // end score hex address 
-	mov	r2,	#88
-	mov	r3, #16
-	ldr	r10, =0x0000
-	bl drawText
-	
-	pop {lr}
-	bx lr
-	
-	
-parseScore:
-
-	push {lr}
-	
-	
-	ldr	r4, =ScoreInt
-	ldr	r4, [r4]		//int score value
-	mov	r5, #0			//hundreds counter
-	mov	r6, r4
-	ldr	r7, =ScoreHex
-	
-hundredsLoop:
-	cmp	r6, #100
-	blt	twoDigitNumber
-	sub	r6, #100
-	add	r5, #1
-	b	hundredsLoop
-	
-	
-	
-twoDigitNumber:		
-
-	add	r5,	#48
-	str	r5, [r7, #4]
-	
-	mov	r5, #0
-	
-tensLoop:	
-	cmp	r6, #10
-	blt	oneDigitNumber
-	sub	r6, #10
-	add	r5, #1
-	b	tensLoop
-	
-oneDigitNumber:
-
-	add	r5,	#48
-	str	r5, [r7, #8]
-	
-	cmp	r6, #0
-	ble	storeZero
-	
-storeFive:
-
-	mov	r5, #53
-	str	r5,	[r7, #12]
-	b	parseScoreEnd
-	
-
-storeZero:
-
-	mov	r5, #48
-	str	r5,	[r7, #12]
-
-parseScoreEnd:
-
-	pop {lr}
-
-	bx lr
-	
-calcScore:
-
-	push {lr}
-
-	mov	r6, #0						//total
-
-	ldr	r4, =beginComputerObjects
-	ldr	r0, =startKnights
-	
-pawnCalc:	
-	ldr	r5, [r4, #32]
-	cmp	r5, #0
-	addeq	r6, #5
-	moveq	r5,	#1
-	str	r5, [r4, #32]
-	add	r4, #40
-	cmp	r4, r0	
-	bne	pawnCalc
-	
-	
-	ldr	r0, =startQueens
-	
-knightCalc:
-	ldr	r5, [r4, #32]
-	cmp	r5, #0
-	addeq	r6, #10
-	moveq	r5,	#1
-	str	r5, [r4, #32]
-	add	r4, #40
-	cmp	r4, r0	
-	bne	knightCalc
-	
-	ldr	r0, =endCharacterObjects
-
-queenCalc:
-
-	ldr	r5, [r4, #32]
-	cmp	r5, #0
-	addeq	r6, #100
-	moveq	r5,	#1
-	str	r5, [r4, #32]
-	add	r4, #40
-	cmp	r4, r0	
-	bne	queenCalc
-	
-
-	ldr	r0, =ScoreInt
-	ldr	r1, [r0]
-	add	r6, r1
-	str	r6, [r0]
-	
-	pop {lr}
-	bx	lr
-
-checkEndCondition:
-
-	push {lr}
-	
-	ldr	r4, =ScoreInt
-	ldr	r5, [r4]
-	cmp	r5, #0
-	ble	gameLost
-	
-	ldr	r4, =beginComputerObjects
-	ldr	r5, =endCharacterObjects
-
-checkWin:
-	
-	cmp	r4, r5
-	beq gameWon
-	ldr	r6, [r4, #20]
-	cmp	r6, #0
-	bne	continueGame
-	add r4, #40
-	b checkWin	
-	
-	
-gameWon:
-
-	bl resultWon
-	bl	endStateLoop
-	//bl haltLoop$
-	
-	
-gameLost:
-
-	bl resultLose
-	bl 	endStateLoop
-	//bl haltLoop$
-	
-	
-continueGame:
-	pop {lr}
-	bx	lr
-	
-	
-endStateLoop:
-
-	push {lr}
-	
-noInputLoop:
-
-	bl SNES_Input
-testNoInput:
-	ldr	r0, =0xffff
-	cmp	r12, r0
-	beq	noInputLoop
-	
-	ldr r0, =beginObjects
-	ldr r1, =endObjects
-	bl clearStateLoop
-	
-	ldr	r0, =GameLost
-	ldr	r1, =endGameLost
-	ldr	r2,	=450
-	ldr	r3, =360
-	ldr	r10, =0x0000
-	bl drawText	
-	
-	b	_start
-
-	
-	
-	pop {lr}
-	bx lr
-
-
 	
 startScreen:
 

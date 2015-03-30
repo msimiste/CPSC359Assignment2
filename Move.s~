@@ -25,32 +25,7 @@ moveLeft:
 		
 		cmp	r11, r10							//check correct bound
 		ble	endLeft								//branch if bound is present
-
-		ldr	r10, =beginBarriers
-				
-barrierCheckLeft:
-		ldr	r0, =Player
-		cmp	r0, r4
-		bne	barrierCheckLeftDone
-		/*ldr	r0, [r10, #20]
-		cmp	r0, #0
-		beq	endBarrierCheckLeftLoop*/ //NOT NEEDED?
-		ldr	r1, =endBarriers
-		cmp	r10, r1
-		beq barrierCheckLeftDone		
-		ldr	r0, [r10]				//barrier x val
-		cmp	r11, r0
-		bne	endBarrierCheckLeftLoop
-		ldr	r0, [r10, #4]
-		cmp	r6, r0
-		beq	endLeft
 		
-endBarrierCheckLeftLoop:
-		add	r10, #40
-		b	barrierCheckLeft
-		
-barrierCheckLeftDone:
-
 		//bl delay								// delays based on speed value ie  r9
 		bl drawSquare							// draw square in color of character
 				
@@ -88,31 +63,7 @@ moveRight:										// moves player to the right
 		add	r11, r5, #16							//set correct bound				
 		
 		cmp	r11, r10							//check correct bound		
-		bge	endRight							//branch if bound is present
-		
-		ldr	r10, =beginBarriers
-				
-barrierCheckRight:
-
-		ldr	r0, =Player
-		cmp	r0, r4
-		bne	barrierCheckRightDone
-
-		ldr	r1, =endBarriers
-		cmp	r10, r1
-		beq barrierCheckRightDone		
-		ldr	r0, [r10]				//barrier x val
-		cmp	r11, r0
-		bne	endBarrierCheckRightLoop
-		ldr	r0, [r10, #4]
-		cmp	r6, r0
-		beq	endRight
-		
-endBarrierCheckRightLoop:
-		add	r10, #40
-		b	barrierCheckRight
-		
-barrierCheckRightDone:								
+		bge	endRight							//branch if bound is present								
 		
 		//bl delay								// delays based on speed value ie  r9
 		bl drawSquare							// draw square in color of character		
@@ -146,33 +97,10 @@ moveDown:										// moves player down
 		ldr r9, [r4, #12] 						//speed
 		ldr	r10, =boundsInfo					
 		ldr	r10, [r10, #16]						//load south bound
-		add	r11, r6, #16						//set correct bound				
+		add	r11, r6, #16							//set correct bound				
 		
 		cmp	r11, r10							//check correct bound
 		bge	endDown								//branch if bound is present
-		
-		ldr	r10, =beginBarriers
-				
-barrierCheckDown:
-		ldr	r0, =Player
-		cmp	r0, r4
-		bne	barrierCheckDownDone
-
-		ldr	r1, =endBarriers
-		cmp	r10, r1
-		beq barrierCheckDownDone
-		ldr	r0, [r10, #4]		
-		cmp	r11, r0
-		bne	endBarrierCheckDownLoop
-		ldr	r0, [r10]				//barrier x val
-		cmp	r5, r0
-		beq	endDown
-		
-endBarrierCheckDownLoop:
-		add	r10, #40
-		b	barrierCheckDown
-		
-barrierCheckDownDone:
 		
 		//bl delay								// delays based on speed value ie  r9
 		bl drawSquare							// draw square in color of character		
@@ -211,29 +139,6 @@ moveUp:
 		
 		cmp	r11, r10							//check correct bound
 		ble	endUp								//branch if bound is present
-		
-		ldr	r10, =beginBarriers
-				
-barrierCheckUp:
-		ldr	r0, =Player
-		cmp	r0, r4
-		bne	barrierCheckUpDone
-
-		ldr	r1, =endBarriers
-		cmp	r10, r1
-		beq barrierCheckUpDone
-		ldr	r0, [r10, #4]		
-		cmp	r11, r0
-		bne	endBarrierCheckUpLoop
-		ldr	r0, [r10]				//barrier x val
-		cmp	r5, r0
-		beq	endUp
-		
-endBarrierCheckUpLoop:
-		add	r10, #40
-		b	barrierCheckUp
-		
-barrierCheckUpDone:
 		
 		//bl delay								// delays based on speed value ie  r9
 		bl drawSquare							// draw square in color of character		
@@ -459,7 +364,6 @@ compWestATLoop:
 			ldr r7, [r4, #16]
 			ldr	r8, [r4, #8]
 			bl moveLeft
-
 updateMoveCompWestAT:
 			add	r4, #40         //
 			cmp r4, r9

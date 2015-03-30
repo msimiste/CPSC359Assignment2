@@ -7,19 +7,16 @@ _start:
     
 .section .text
 
-
-
 main:
 
 
     mov     sp, #0x8000	
 	bl		EnableJTAG
-
-	
+		
 	bl InitFrameBuffer
 	cmp r0, #0
 	beq haltLoop$
-
+	
 	bl SNES
 
 	bl initScreen
@@ -47,11 +44,6 @@ mainLoop:
 	
 	bl		ParseSNES
 	
-	ldr	r0,	=beginBarriers
-	ldr	r1,	=endBarriers
-	//ldr r2, =beginComputerObjects
-	bl	barrierHit
-	
 	ldr	r0, =PlayerBullet
 	ldr r1, =beginComputerObjects		//address of beginning computer players
 	ldr r2, =endCharacterObjects		//address of end computer players
@@ -60,18 +52,6 @@ mainLoop:
 	ldr	r0, =beginComputerBulletObjects
 	ldr	r1, =endObjects
 	ldr	r2, =Player
-	bl	computerBulletHits
-	
-	ldr	r0, =beginComputerObjects
-	ldr	r1, =endCharacterObjects
-	ldr	r2, =Player
-	bl	computerPlayerCollision
-	
-	
-	
-	ldr	r0, =beginBarriers
-	ldr	r1, =endCharacterObjects
-	bl	killNoHardness
 	
 	ldr	r0, =beginComputerObjects
 	ldr	r1, =endCharacterObjects
@@ -83,15 +63,7 @@ mainLoop:
 	
 	bl updateState
 	
-	ldr	r0, =Player
-	bl forceDrawCharacter
-	
-	bl	drawScoreBlack
-	bl	calcScore
-	bl	parseScore
-	bl	drawScore
-	
-	bl checkEndCondition
+
 	
 	b mainLoop
 
